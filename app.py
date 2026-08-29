@@ -17,5 +17,3 @@ def index():
 @app.route('/get_steps')
 def get_steps():
     return jsonify(script_steps)
-
-# Jangan gunakan app.run() di Vercel, cukup biarkan 'app' diekspor
