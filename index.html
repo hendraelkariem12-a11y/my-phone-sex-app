@@ -3,33 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phone Sex Interactive Script</title>
+    <title>Phone Sex Interactive Script - Pro Edition</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #121212; color: #e0e0e0; text-align: center; padding: 50px; }
-        .card { background: #1e1e1e; padding: 20px; border-radius: 10px; display: inline-block; width: 90%; max-width: 400px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
-        button { background-color: #ff4757; color: white; border: none; padding: 12px 20px; font-size: 16px; border-radius: 5px; cursor: pointer; margin-top: 15px; width: 100%; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #121212; color: #e0e0e0; text-align: center; padding: 20px; margin: 0; }
+        .card { background: #1e1e1e; padding: 20px; border-radius: 12px; display: inline-block; width: 100%; max-width: 450px; box-shadow: 0 6px 15px rgba(0,0,0,0.6); box-sizing: border-box; text-align: left; }
+        h2 { text-align: center; color: #ff4757; margin-bottom: 10px; }
+        
+        /* Progress Bar */
+        .progress-container { width: 100%; background-color: #333; border-radius: 5px; margin-bottom: 15px; overflow: hidden; height: 8px; }
+        .progress-bar { width: 0%; height: 100%; background-color: #ff4757; transition: width 0.3s ease; }
+
+        .stage { color: #ff6b81; font-weight: bold; font-size: 13px; text-transform: uppercase; margin-bottom: 5px; }
+        .dialogue { font-size: 18px; margin: 10px 0 20px 0; font-style: italic; line-height: 1.5; color: #fff; min-height: 60px; }
+        .timer { color: #f1c40f; font-size: 14px; margin-bottom: 15px; text-align: center; font-weight: bold; }
+
+        .btn-group { display: flex; gap: 10px; margin-bottom: 10px; }
+        button { background-color: #ff4757; color: white; border: none; padding: 12px; font-size: 15px; border-radius: 6px; cursor: pointer; flex: 1; font-weight: bold; transition: background 0.2s; }
         button:hover { background-color: #ff6b81; }
-        button:disabled { background-color: #555; cursor: not-allowed; }
-        .stage { color: #ff6b81; font-weight: bold; font-size: 14px; text-transform: uppercase; }
-        .dialogue { font-size: 18px; margin: 15px 0; font-style: italic; line-height: 1.5; }
-        .timer { color: #f1c40f; font-size: 14px; margin-top: 10px; }
+        button:disabled { background-color: #444; color: #777; cursor: not-allowed; }
+        .btn-secondary { background-color: #2f3542; }
+        .btn-secondary:hover { background-color: #57606f; }
+
+        /* Panel Kustom & Musik */
+        .section-box { margin-top: 20px; border-top: 1px solid #333; padding-top: 15px; }
+        .section-box h4 { margin: 0 0 8px 0; font-size: 14px; color: #a4b0be; }
+        input[type="text"] { width: calc(100% - 16px); padding: 10px; border-radius: 6px; border: 1px solid #444; background: #2f3542; color: #fff; font-size: 14px; margin-bottom: 8px; }
+        .audio-controls { display: flex; justify-content: space-between; align-items: center; background: #2f3542; padding: 8px 12px; border-radius: 6px; font-size: 14px; }
     </style>
 </head>
 <body>
 
     <div class="card">
-        <h2>Panduan Phone Sex</h2>
-        <div id="app">
-            <p class="stage" id="stage-text">Mulai Sesi</p>
-            <p class="dialogue" id="dialogue-text">"Tekan tombol di bawah untuk mulai sesi interaktif."</p>
-            <p class="timer" id="timer-text"></p>
-            <button id="next-btn" onclick="nextStep()">Mulai / Lanjut</button>
+        <h2>Phone Sex Pro</h2>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+
+        <p class="stage" id="stage-text">Siap Memulai</p>
+        <p class="dialogue" id="dialogue-text">"Tekan tombol Mulai atau Otomatis untuk menjalankan sesi."</p>
+        <p class="timer" id="timer-text"></p>
+
+        <div class="btn-group">
+            <button id="next-btn" onclick="nextStep()">Lanjut Manual</button>
+            <button id="auto-btn" class="btn-secondary" onclick="toggleAutoPlay()">Mulai Otomatis</button>
+        </div>
+
+        <div class="section-box">
+            <h4>Tambah Kata-Kata Spontan / Kustom</h4>
+            <input type="text" id="custom-dialogue" placeholder="Ketik kalimat nakal di sini...">
+            <button class="btn-secondary" onclick="addCustomScript()" style="width: 100%; padding: 8px;">Masukkan ke Antrean</button>
+        </div>
+
+        <div class="section-box">
+            <h4>Suasana Latar Belakang</h4>
+            <div class="audio-controls">
+                <span>Suasana Malam (Rileks)</span>
+                <button class="btn-secondary" onclick="toggleAudio()" id="audio-btn" style="flex: none; padding: 6px 12px; font-size: 13px;">Putar Musik</button>
+            </div>
+            <audio id="ambient-audio" loop>
+                <source src="https://cdn.pixabay.com/download/audio/2021/09/06/audio_753a817478.mp3?filename=rain-and-thunder-nature-sounds-7591.mp3" type="audio/mpeg">
+            </audio>
         </div>
     </div>
 
     <script>
-        // Daftar skrip tahap demi tahap
-        const steps = [
+        // Skrip Utama
+        let steps = [
             { stage: "Pembukaan", dialogue: "Sayang, udah posisi paling nyaman di kasur belum? Merem ya..." },
             { stage: "Pemanasan", dialogue: "Bayangin aku lagi meluk kamu, tangan aku mulai nyentuh paha kamu..." },
             { stage: "Eskalasi", dialogue: "Aku lagi megang punya aku sekarang, keras banget ngebayangin bodi kamu..." },
@@ -39,6 +79,13 @@
 
         let currentIndex = -1;
         let isWaiting = false;
+        let isAutoPlaying = false;
+        let autoTimer = null;
+
+        function updateProgress() {
+            let progress = ((currentIndex + 1) / steps.length) * 100;
+            document.getElementById("progress-bar").style.width = progress + "%";
+        }
 
         function nextStep() {
             if (isWaiting) return;
@@ -46,15 +93,13 @@
             currentIndex++;
             if (currentIndex < steps.length) {
                 let current = steps[currentIndex];
-                document.getElementById("stage-text").innerText = "Tahap: " + current.stage;
+                document.getElementById("stage-text").innerText = "Tahap: " + current.stage + ` (${currentIndex + 1}/${steps.length})`;
                 document.getElementById("dialogue-text").innerText = `"${current.dialogue}"`;
+                updateProgress();
                 
-                startTimer(5); // Jeda 5 detik otomatis untuk menunggu balasan emoji
+                startTimer(5); // Jeda 5 detik otomatis untuk menunggu emoji
             } else {
-                document.getElementById("stage-text").innerText = "Selesai";
-                document.getElementById("dialogue-text").innerText = "Sesi phone sex telah berakhir. Selamat istirahat!";
-                document.getElementById("timer-text").innerText = "";
-                document.getElementById("next-btn").style.display = "none";
+                endSession();
             }
         }
 
@@ -72,8 +117,68 @@
                     document.getElementById("timer-text").innerText = "Jeda selesai. Silakan lanjut!";
                     btn.disabled = false;
                     isWaiting = false;
+
+                    // Jika mode otomatis aktif, lanjut otomatis ke tahap berikutnya setelah jeda habis
+                    if (isAutoPlaying && currentIndex < steps.length - 1) {
+                        nextStep();
+                    } else if (isAutoPlaying && currentIndex >= steps.length - 1) {
+                        endSession();
+                    }
                 }
             }, 1000);
+        }
+
+        function toggleAutoPlay() {
+            let autoBtn = document.getElementById("auto-btn");
+            if (!isAutoPlaying) {
+                isAutoPlaying = true;
+                autoBtn.innerText = "Berhentikan Otomatis";
+                autoBtn.style.backgroundColor = "#eb4d4b";
+                if (currentIndex === -1 || currentIndex >= steps.length - 1) {
+                    currentIndex = -1;
+                    nextStep();
+                } else if (!isWaiting) {
+                    nextStep();
+                }
+            } else {
+                isAutoPlaying = false;
+                autoBtn.innerText = "Mulai Otomatis";
+                autoBtn.style.backgroundColor = "#2f3542";
+            }
+        }
+
+        function addCustomScript() {
+            let customInput = document.getElementById("custom-dialogue");
+            let text = customInput.value.trim();
+            if (text !== "") {
+                steps.push({ stage: "Kustom Spontan", dialogue: text });
+                customInput.value = "";
+                alert("Kata-kata kustom berhasil dimasukkan ke antrean sesi!");
+            }
+        }
+
+        function toggleAudio() {
+            let audio = document.getElementById("ambient-audio");
+            let audioBtn = document.getElementById("audio-btn");
+            if (audio.paused) {
+                audio.play();
+                audioBtn.innerText = "Matikan Musik";
+                audioBtn.style.backgroundColor = "#eb4d4b";
+            } else {
+                audio.pause();
+                audioBtn.innerText = "Putar Musik";
+                audioBtn.style.backgroundColor = "#2f3542";
+            }
+        }
+
+        function endSession() {
+            document.getElementById("stage-text").innerText = "Selesai";
+            document.getElementById("dialogue-text").innerText = "Sesi phone sex telah berakhir. Selamat istirahat!";
+            document.getElementById("timer-text").innerText = "";
+            document.getElementById("next-btn").style.display = "none";
+            document.getElementById("auto-btn").style.display = "none";
+            document.getElementById("progress-bar").style.width = "100%";
+            isAutoPlaying = false;
         }
     </script>
 </body>
