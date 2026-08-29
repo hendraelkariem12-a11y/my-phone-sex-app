@@ -3,43 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phone Sex Pro - Hot Edition</title>
+    <title>Phone Sex Ultimate Pro</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #121212; color: #e0e0e0; text-align: center; padding: 20px; margin: 0; }
-        .card { background: #1e1e1e; padding: 20px; border-radius: 12px; display: inline-block; width: 100%; max-width: 450px; box-shadow: 0 6px 15px rgba(0,0,0,0.6); box-sizing: border-box; text-align: left; }
-        h2 { text-align: center; color: #ff4757; margin-bottom: 10px; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #121212; color: #e0e0e0; text-align: center; padding: 15px; margin: 0; }
+        .card { background: #1e1e1e; padding: 15px; border-radius: 12px; display: inline-block; width: 100%; max-width: 450px; box-shadow: 0 6px 15px rgba(0,0,0,0.6); box-sizing: border-box; text-align: left; }
+        h2 { text-align: center; color: #ff4757; margin-bottom: 8px; font-size: 20px; }
         
-        .progress-container { width: 100%; background-color: #333; border-radius: 5px; margin-bottom: 15px; overflow: hidden; height: 8px; }
+        .progress-container { width: 100%; background-color: #333; border-radius: 5px; margin-bottom: 12px; overflow: hidden; height: 8px; }
         .progress-bar { width: 0%; height: 100%; background-color: #ff4757; transition: width 0.3s ease; }
 
-        .stage { color: #ff6b81; font-weight: bold; font-size: 13px; text-transform: uppercase; margin-bottom: 5px; }
-        .dialogue { font-size: 18px; margin: 10px 0 20px 0; font-style: italic; line-height: 1.5; color: #fff; min-height: 70px; }
-        .timer { color: #f1c40f; font-size: 14px; margin-bottom: 15px; text-align: center; font-weight: bold; }
+        .stage { color: #ff6b81; font-weight: bold; font-size: 12px; text-transform: uppercase; margin-bottom: 4px; display: flex; justify-content: space-between; }
+        .dialogue { font-size: 17px; margin: 8px 0 15px 0; font-style: italic; line-height: 1.4; color: #fff; min-height: 60px; }
+        .timer { color: #f1c40f; font-size: 13px; margin-bottom: 12px; text-align: center; font-weight: bold; }
 
-        .btn-group { display: flex; gap: 10px; margin-bottom: 10px; }
-        button { background-color: #ff4757; color: white; border: none; padding: 12px; font-size: 15px; border-radius: 6px; cursor: pointer; flex: 1; font-weight: bold; transition: background 0.2s; }
+        .btn-group { display: flex; gap: 8px; margin-bottom: 8px; }
+        button { background-color: #ff4757; color: white; border: none; padding: 10px; font-size: 14px; border-radius: 6px; cursor: pointer; flex: 1; font-weight: bold; transition: background 0.2s; }
         button:hover { background-color: #ff6b81; }
         button:disabled { background-color: #444; color: #777; cursor: not-allowed; }
         .btn-secondary { background-color: #2f3542; }
         .btn-secondary:hover { background-color: #57606f; }
+        .btn-warning { background-color: #e67e22; }
 
-        .section-box { margin-top: 20px; border-top: 1px solid #333; padding-top: 15px; }
-        .section-box h4 { margin: 0 0 8px 0; font-size: 14px; color: #a4b0be; }
-        input[type="text"] { width: calc(100% - 16px); padding: 10px; border-radius: 6px; border: 1px solid #444; background: #2f3542; color: #fff; font-size: 14px; margin-bottom: 8px; }
-        .audio-controls { display: flex; justify-content: space-between; align-items: center; background: #2f3542; padding: 8px 12px; border-radius: 6px; font-size: 14px; }
+        .section-box { margin-top: 15px; border-top: 1px solid #333; padding-top: 10px; }
+        .section-box h4 { margin: 0 0 6px 0; font-size: 13px; color: #a4b0be; }
+        input[type="text"] { width: calc(100% - 16px); padding: 8px; border-radius: 6px; border: 1px solid #444; background: #2f3542; color: #fff; font-size: 13px; margin-bottom: 6px; }
+        
+        /* Notifikasi Interaktif Real-Time */
+        .notification-box { background: #2f3542; border-left: 4px solid #ff4757; padding: 8px 10px; font-size: 13px; margin-bottom: 10px; border-radius: 4px; display: none; }
+        
+        /* Grid Tombol Reaksi */
+        .reaction-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin-bottom: 8px; }
+        .reaction-btn { background: #3742fa; font-size: 12px; padding: 8px; }
+        
+        .audio-controls { display: flex; justify-content: space-between; align-items: center; background: #2f3542; padding: 6px 10px; border-radius: 6px; font-size: 13px; }
     </style>
 </head>
 <body>
 
     <div class="card">
-        <h2>Phone Sex Hot Edition</h2>
+        <h2>Phone Sex Ultimate Pro</h2>
         
         <div class="progress-container">
             <div class="progress-bar" id="progress-bar"></div>
         </div>
 
-        <p class="stage" id="stage-text">Siap Memulai</p>
-        <p class="dialogue" id="dialogue-text">"Tekan tombol Mulai Otomatis untuk membakar suasananya."</p>
+        <div class="stage">
+            <span id="stage-text">Siap Memulai</span>
+            <span id="mode-indicator" style="color: #2ed573;">Mode: Hot</span>
+        </div>
+        
+        <!-- Kotak Notifikasi Interaktif Dari Pasangan -->
+        <div id="notif-box" class="notification-box">
+            🔥 <b>Sinyal Pacar:</b> <span id="notif-text">Menunggu respons...</span>
+        </div>
+
+        <p class="dialogue" id="dialogue-text">"Tekan Mulai Otomatis & rasakan getaran interaktifnya."</p>
         <p class="timer" id="timer-text"></p>
 
         <div class="btn-group">
@@ -47,17 +65,33 @@
             <button id="auto-btn" class="btn-secondary" onclick="toggleAutoPlay()">Mulai Otomatis</button>
         </div>
 
+        <div class="btn-group">
+            <button class="btn-secondary" onclick="changeMode('Sensual')">Level: Sensual</button>
+            <button class="btn-warning" onclick="changeMode('Hardcore')">Level: Hardcore</button>
+        </div>
+
+        <!-- Panel Reaksi Cepat / Simulasi Respons Pacar -->
         <div class="section-box">
-            <h4>Tambah Kata-Kata Spontan / Kustom</h4>
+            <h4>Simulasi / Tombol Respons Cepat Pasangan</h4>
+            <div class="reaction-grid">
+                <button class="reaction-btn" onclick="sendReaction('🥵 Lagi sayang, kencengin!')">🥵 Lagi, Kencengin!</button>
+                <button class="reaction-btn" onclick="sendReaction('💦 Ahh... udah basah banget!')">💦 Udah Basah!</button>
+                <button class="reaction-btn" onclick="sendReaction('🛑 Tahan sebentar, pelan-pelan...')">🛑 Tahan Dulu</button>
+                <button class="reaction-btn" onclick="triggerDare()">🎲 Ambil Tantangan Nakal</button>
+            </div>
+        </div>
+
+        <div class="section-box">
+            <h4>Tambah Kata-Kata Spontan</h4>
             <input type="text" id="custom-dialogue" placeholder="Ketik kalimat nakal di sini...">
-            <button class="btn-secondary" onclick="addCustomScript()" style="width: 100%; padding: 8px;">Masukkan ke Antrean</button>
+            <button class="btn-secondary" onclick="addCustomScript()" style="width: 100%; padding: 6px; font-size: 13px;">Masukkan ke Antrean</button>
         </div>
 
         <div class="section-box">
             <h4>Suasana Latar Belakang</h4>
             <div class="audio-controls">
                 <span>Suasana Malam (Rileks)</span>
-                <button class="btn-secondary" onclick="toggleAudio()" id="audio-btn" style="flex: none; padding: 6px 12px; font-size: 13px;">Putar Musik</button>
+                <button class="btn-secondary" onclick="toggleAudio()" id="audio-btn" style="flex: none; padding: 5px 10px; font-size: 12px;">Putar Musik</button>
             </div>
             <audio id="ambient-audio" loop>
                 <source src="https://cdn.pixabay.com/download/audio/2021/09/06/audio_753a817478.mp3?filename=rain-and-thunder-nature-sounds-7591.mp3" type="audio/mpeg">
@@ -66,21 +100,61 @@
     </div>
 
     <script>
-        // Skrip Diperbarui: Jauh lebih panas, vulgar, dan bertahap membangun gairah perempuan
-        let steps = [
-            { stage: "1. Fokus & Bisikan", dialogue: "Sayang... pejamin mata kamu. Jangan dengerin suara lain, fokus ke suara napas aku di telinga kamu..." },
-            { stage: "2. Visualisasi Sentuhan", dialogue: "Bayangin aku udah ada di atas kasur kamu, nindih badan kamu pelan-pelan sambil natap mata kamu tajam..." },
-            { stage: "3. Rangsangan Kulit", dialogue: "Tangan aku mulai buka kancing baju kamu satu-satu... ngelus kulit perut kamu yang merinding karena nahan kangen." },
-            { stage: "4. Sentuhan Sensitif", dialogue: "Bibir aku turun nyium leher kamu, ngulum kulit sensitif kamu pelan-pelan sampe kamu mendesah..." },
-            { stage: "5. Peningkatan Suhu", dialogue: "Tangan aku meraba paha mulus kamu, masuk ke dalam celana dalam kamu... rasanya udah basah banget di situ, kan?" },
-            { stage: "6. Dirty Talk Intens", dialogue: "Punya aku udah keras banget, tegang parah ngebayangin sempitnya memek kamu. Aku pengen genjot kamu sampe lemes malam ini!" },
-            { stage: "7. Puncak / Klimaks", dialogue: "Ahh... shh... aku udah mau keluar sayang! Bayangin aku semprotin sperma panas aku di dalam memek kamu yang jepit batang aku... ahh!" },
-            { stage: "8. Aftercare", dialogue: "Fyuuh... lemas banget. Peluk guling kamu erat-erat ya sayang, bayangin itu aku yang meluk kamu. Tidur nyenyak..." }
-        ];
+        let scriptLibrary = {
+            "Sensual": [
+                { stage: "Bisikan Awal", dialogue: "Sayang... pejamin mata kamu. Dengerin suara napas aku pelan-pelan..." },
+                { stage: "Pemanasan Halus", dialogue: "Bayangin aku meluk kamu dari belakang, nyium leher kamu dengan lembut..." },
+                { stage: "Sentuhan Lembut", dialogue: "Tangan aku ngelus perut kamu perlahan, ngerasain kehangatan tubuh kamu..." },
+                { stage: "Puncak Keintiman", dialogue: "Aku nempel erat sama kamu... rasanya damai tapi bikin gairah naik pelan-pelan..." },
+                { stage: "Penutup Rileks", dialogue: "Fyuuh... peluk guling erat ya sayang. Tidur yang nyenyak." }
+            ],
+            "Hot": [
+                { stage: "1. Fokus & Bisikan", dialogue: "Sayang... pejamin mata kamu. Jangan dengerin suara lain, fokus ke suara napas aku di telinga kamu..." },
+                { stage: "2. Visualisasi Sentuhan", dialogue: "Bayangin aku udah ada di atas kasur kamu, nindih badan kamu pelan-pelan sambil natap mata kamu tajam..." },
+                { stage: "3. Rangsangan Kulit", dialogue: "Tangan aku mulai buka kancing baju kamu satu-satu... ngelus kulit perut kamu yang merinding." },
+                { stage: "4. Sentuhan Sensitif", dialogue: "Bibir aku turun nyium leher kamu, ngulum kulit sensitif kamu sampe kamu mendesah..." },
+                { stage: "5. Peningkatan Suhu", dialogue: "Tangan aku meraba paha mulus kamu, masuk ke celana dalam kamu... rasanya udah basah banget di situ, kan?" },
+                { stage: "6. Dirty Talk Intens", dialogue: "Punya aku udah keras banget, tegang parah ngebayangin sempitnya memek kamu. Aku pengen genjot kamu!" },
+                { stage: "7. Klimaks", dialogue: "Ahh... shh... aku udah mau keluar sayang! Bayangin aku semprotin sperma panas aku di dalam kamu... ahh!" },
+                { stage: "8. Aftercare", dialogue: "Fyuuh... lemas banget. Peluk guling kamu erat-erat ya sayang. Tidur nyenyak..." }
+            ],
+            "Hardcore": [
+                { stage: "1. Provokasi Liar", dialogue: "Buka celana kamu sekarang... biarin aku bayangin bodi telanjang kamu yang lagi nungguin aku!" },
+                { stage: "2. Sentuhan Kasar", dialogue: "Aku cengkeram pinggang kamu kenceng-kenceng... gak usah malu-malu dengerin suara nakal aku!" },
+                { stage: "3. Eskalasi Cepat", dialogue: "Batang aku udah berdenyut-denyut pengen ngentot memek kamu yang becek sekarang juga!" },
+                { stage: "4. Hantaman Brutal", dialogue: "Aku hantam memek kamu kenceng-kenceng tanpa ampun! *Ahh... ahh*... rasain nikmatnya!" },
+                { stage: "5. Klimaks Brutal", dialogue: "Crot! Aku tumpahin semua cairan panas aku di rahim kamu sampai banjir! Selesai." }
+            ]
+        };
 
+        let currentMode = "Hot";
+        let steps = scriptLibrary[currentMode];
         let currentIndex = -1;
         let isWaiting = false;
         let isAutoPlaying = false;
+
+        let dares = [
+            "Tantangan: Sebutin warna celana dalam yang lagi kamu pake sekarang!",
+            "Tantangan: Deskripsikan bagian tubuh aku yang paling bikin kamu horor.",
+            "Tantangan: Kirim 5 emoji desahan berturut-turut ke chat sekarang!",
+            "Tantangan: Bisikin ke mic HP apa posisi favorit kamu kalau kita ketemu."
+        ];
+
+        function triggerVibration(pattern) {
+            // Fitur Getar Haptic HP (jika didukung browser HP)
+            if ("vibrate" in navigator) {
+                navigator.vibrate(pattern);
+            }
+        }
+
+        function changeMode(mode) {
+            currentMode = mode;
+            steps = scriptLibrary[mode];
+            currentIndex = -1;
+            document.getElementById("mode-indicator").innerText = "Mode: " + mode;
+            alert("Mode berhasil diubah ke: " + mode);
+            nextStep();
+        }
 
         function updateProgress() {
             let progress = ((currentIndex + 1) / steps.length) * 100;
@@ -93,11 +167,18 @@
             currentIndex++;
             if (currentIndex < steps.length) {
                 let current = steps[currentIndex];
-                document.getElementById("stage-text").innerText = "TAHAP: " + current.stage + ` (${currentIndex + 1}/${steps.length})`;
+                document.getElementById("stage-text").innerText = current.stage + ` (${currentIndex + 1}/${steps.length})`;
                 document.getElementById("dialogue-text").innerText = `"${current.dialogue}"`;
                 updateProgress();
                 
-                startTimer(5); // Jeda 5 detik bagi dia untuk kirim emoji 🥵 / 💦
+                // Pemicu Getar Otomatis berdasarkan progress tahap
+                if (currentIndex >= steps.length - 2) {
+                    triggerVibration([300, 100, 300, 100, 500]); // Getar intens di tahap klimaks
+                } else {
+                    triggerVibration(150); // Getar pelan di tahap biasa
+                }
+                
+                startTimer(5);
             } else {
                 endSession();
             }
@@ -146,13 +227,30 @@
             }
         }
 
+        function sendReaction(text) {
+            let box = document.getElementById("notif-box");
+            let textSpan = document.getElementById("notif-text");
+            textSpan.innerText = text;
+            box.style.display = "block";
+            triggerVibration([100, 50, 100]);
+            
+            setTimeout(() => {
+                box.style.display = "none";
+            }, 4000);
+        }
+
+        function triggerDare() {
+            let randomDare = dares[Math.floor(Math.random() * dares.length)];
+            sendReaction(randomDare);
+        }
+
         function addCustomScript() {
             let customInput = document.getElementById("custom-dialogue");
             let text = customInput.value.trim();
             if (text !== "") {
-                steps.push({ stage: "Spontan / Kustom", dialogue: text });
+                steps.push({ stage: "Spontan", dialogue: text });
                 customInput.value = "";
-                alert("Kata-kata kustom berhasil dimasukkan ke antrean!");
+                alert("Kalimat kustom masuk antrean!");
             }
         }
 
