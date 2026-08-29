@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phone Sex Interactive Script - Pro Edition</title>
+    <title>Phone Sex Pro - Hot Edition</title>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #121212; color: #e0e0e0; text-align: center; padding: 20px; margin: 0; }
         .card { background: #1e1e1e; padding: 20px; border-radius: 12px; display: inline-block; width: 100%; max-width: 450px; box-shadow: 0 6px 15px rgba(0,0,0,0.6); box-sizing: border-box; text-align: left; }
         h2 { text-align: center; color: #ff4757; margin-bottom: 10px; }
         
-        /* Progress Bar */
         .progress-container { width: 100%; background-color: #333; border-radius: 5px; margin-bottom: 15px; overflow: hidden; height: 8px; }
         .progress-bar { width: 0%; height: 100%; background-color: #ff4757; transition: width 0.3s ease; }
 
         .stage { color: #ff6b81; font-weight: bold; font-size: 13px; text-transform: uppercase; margin-bottom: 5px; }
-        .dialogue { font-size: 18px; margin: 10px 0 20px 0; font-style: italic; line-height: 1.5; color: #fff; min-height: 60px; }
+        .dialogue { font-size: 18px; margin: 10px 0 20px 0; font-style: italic; line-height: 1.5; color: #fff; min-height: 70px; }
         .timer { color: #f1c40f; font-size: 14px; margin-bottom: 15px; text-align: center; font-weight: bold; }
 
         .btn-group { display: flex; gap: 10px; margin-bottom: 10px; }
@@ -24,7 +23,6 @@
         .btn-secondary { background-color: #2f3542; }
         .btn-secondary:hover { background-color: #57606f; }
 
-        /* Panel Kustom & Musik */
         .section-box { margin-top: 20px; border-top: 1px solid #333; padding-top: 15px; }
         .section-box h4 { margin: 0 0 8px 0; font-size: 14px; color: #a4b0be; }
         input[type="text"] { width: calc(100% - 16px); padding: 10px; border-radius: 6px; border: 1px solid #444; background: #2f3542; color: #fff; font-size: 14px; margin-bottom: 8px; }
@@ -34,14 +32,14 @@
 <body>
 
     <div class="card">
-        <h2>Phone Sex Pro</h2>
+        <h2>Phone Sex Hot Edition</h2>
         
         <div class="progress-container">
             <div class="progress-bar" id="progress-bar"></div>
         </div>
 
         <p class="stage" id="stage-text">Siap Memulai</p>
-        <p class="dialogue" id="dialogue-text">"Tekan tombol Mulai atau Otomatis untuk menjalankan sesi."</p>
+        <p class="dialogue" id="dialogue-text">"Tekan tombol Mulai Otomatis untuk membakar suasananya."</p>
         <p class="timer" id="timer-text"></p>
 
         <div class="btn-group">
@@ -68,19 +66,21 @@
     </div>
 
     <script>
-        // Skrip Utama
+        // Skrip Diperbarui: Jauh lebih panas, vulgar, dan bertahap membangun gairah perempuan
         let steps = [
-            { stage: "Pembukaan", dialogue: "Sayang, udah posisi paling nyaman di kasur belum? Merem ya..." },
-            { stage: "Pemanasan", dialogue: "Bayangin aku lagi meluk kamu, tangan aku mulai nyentuh paha kamu..." },
-            { stage: "Eskalasi", dialogue: "Aku lagi megang punya aku sekarang, keras banget ngebayangin bodi kamu..." },
-            { stage: "Klimaks / Stop", dialogue: "Ahh... aku udah mau keluar, tahan sebentar... crot di dalam..." },
-            { stage: "Penutup", dialogue: "Fyuuh... lemas banget. Makasih ya sayang, sekarang waktunya tidur nyenyak." }
+            { stage: "1. Fokus & Bisikan", dialogue: "Sayang... pejamin mata kamu. Jangan dengerin suara lain, fokus ke suara napas aku di telinga kamu..." },
+            { stage: "2. Visualisasi Sentuhan", dialogue: "Bayangin aku udah ada di atas kasur kamu, nindih badan kamu pelan-pelan sambil natap mata kamu tajam..." },
+            { stage: "3. Rangsangan Kulit", dialogue: "Tangan aku mulai buka kancing baju kamu satu-satu... ngelus kulit perut kamu yang merinding karena nahan kangen." },
+            { stage: "4. Sentuhan Sensitif", dialogue: "Bibir aku turun nyium leher kamu, ngulum kulit sensitif kamu pelan-pelan sampe kamu mendesah..." },
+            { stage: "5. Peningkatan Suhu", dialogue: "Tangan aku meraba paha mulus kamu, masuk ke dalam celana dalam kamu... rasanya udah basah banget di situ, kan?" },
+            { stage: "6. Dirty Talk Intens", dialogue: "Punya aku udah keras banget, tegang parah ngebayangin sempitnya memek kamu. Aku pengen genjot kamu sampe lemes malam ini!" },
+            { stage: "7. Puncak / Klimaks", dialogue: "Ahh... shh... aku udah mau keluar sayang! Bayangin aku semprotin sperma panas aku di dalam memek kamu yang jepit batang aku... ahh!" },
+            { stage: "8. Aftercare", dialogue: "Fyuuh... lemas banget. Peluk guling kamu erat-erat ya sayang, bayangin itu aku yang meluk kamu. Tidur nyenyak..." }
         ];
 
         let currentIndex = -1;
         let isWaiting = false;
         let isAutoPlaying = false;
-        let autoTimer = null;
 
         function updateProgress() {
             let progress = ((currentIndex + 1) / steps.length) * 100;
@@ -93,11 +93,11 @@
             currentIndex++;
             if (currentIndex < steps.length) {
                 let current = steps[currentIndex];
-                document.getElementById("stage-text").innerText = "Tahap: " + current.stage + ` (${currentIndex + 1}/${steps.length})`;
+                document.getElementById("stage-text").innerText = "TAHAP: " + current.stage + ` (${currentIndex + 1}/${steps.length})`;
                 document.getElementById("dialogue-text").innerText = `"${current.dialogue}"`;
                 updateProgress();
                 
-                startTimer(5); // Jeda 5 detik otomatis untuk menunggu emoji
+                startTimer(5); // Jeda 5 detik bagi dia untuk kirim emoji 🥵 / 💦
             } else {
                 endSession();
             }
@@ -118,7 +118,6 @@
                     btn.disabled = false;
                     isWaiting = false;
 
-                    // Jika mode otomatis aktif, lanjut otomatis ke tahap berikutnya setelah jeda habis
                     if (isAutoPlaying && currentIndex < steps.length - 1) {
                         nextStep();
                     } else if (isAutoPlaying && currentIndex >= steps.length - 1) {
@@ -151,9 +150,9 @@
             let customInput = document.getElementById("custom-dialogue");
             let text = customInput.value.trim();
             if (text !== "") {
-                steps.push({ stage: "Kustom Spontan", dialogue: text });
+                steps.push({ stage: "Spontan / Kustom", dialogue: text });
                 customInput.value = "";
-                alert("Kata-kata kustom berhasil dimasukkan ke antrean sesi!");
+                alert("Kata-kata kustom berhasil dimasukkan ke antrean!");
             }
         }
 
