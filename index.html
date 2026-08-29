@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone Sex Interactive Script</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #121212; color: #e0e0e0; text-align: center; padding: 50px; }
+        .card { background: #1e1e1e; padding: 20px; border-radius: 10px; display: inline-block; width: 90%; max-width: 400px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
+        button { background-color: #ff4757; color: white; border: none; padding: 12px 20px; font-size: 16px; border-radius: 5px; cursor: pointer; margin-top: 15px; width: 100%; }
+        button:hover { background-color: #ff6b81; }
+        button:disabled { background-color: #555; cursor: not-allowed; }
+        .stage { color: #ff6b81; font-weight: bold; font-size: 14px; text-transform: uppercase; }
+        .dialogue { font-size: 18px; margin: 15px 0; font-style: italic; line-height: 1.5; }
+        .timer { color: #f1c40f; font-size: 14px; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>Panduan Phone Sex</h2>
+        <div id="app">
+            <p class="stage" id="stage-text">Mulai Sesi</p>
+            <p class="dialogue" id="dialogue-text">"Tekan tombol di bawah untuk mulai sesi interaktif."</p>
+            <p class="timer" id="timer-text"></p>
+            <button id="next-btn" onclick="nextStep()">Mulai / Lanjut</button>
+        </div>
+    </div>
+
+    <script>
+        // Daftar skrip tahap demi tahap
+        const steps = [
+            { stage: "Pembukaan", dialogue: "Sayang, udah posisi paling nyaman di kasur belum? Merem ya..." },
+            { stage: "Pemanasan", dialogue: "Bayangin aku lagi meluk kamu, tangan aku mulai nyentuh paha kamu..." },
+            { stage: "Eskalasi", dialogue: "Aku lagi megang punya aku sekarang, keras banget ngebayangin bodi kamu..." },
+            { stage: "Klimaks / Stop", dialogue: "Ahh... aku udah mau keluar, tahan sebentar... crot di dalam..." },
+            { stage: "Penutup", dialogue: "Fyuuh... lemas banget. Makasih ya sayang, sekarang waktunya tidur nyenyak." }
+        ];
+
+        let currentIndex = -1;
+        let isWaiting = false;
+
+        function nextStep() {
+            if (isWaiting) return;
+            
+            currentIndex++;
+            if (currentIndex < steps.length) {
+                let current = steps[currentIndex];
+                document.getElementById("stage-text").innerText = "Tahap: " + current.stage;
+                document.getElementById("dialogue-text").innerText = `"${current.dialogue}"`;
+                
+                startTimer(5); // Jeda 5 detik otomatis untuk menunggu balasan emoji
+            } else {
+                document.getElementById("stage-text").innerText = "Selesai";
+                document.getElementById("dialogue-text").innerText = "Sesi phone sex telah berakhir. Selamat istirahat!";
+                document.getElementById("timer-text").innerText = "";
+                document.getElementById("next-btn").style.display = "none";
+            }
+        }
+
+        function startTimer(seconds) {
+            isWaiting = true;
+            let btn = document.getElementById("next-btn");
+            btn.disabled = true;
+            
+            let timerInterval = setInterval(() => {
+                document.getElementById("timer-text").innerText = `Tunggu balasan emoji: ${seconds} detik...`;
+                seconds--;
+                
+                if (seconds < 0) {
+                    clearInterval(timerInterval);
+                    document.getElementById("timer-text").innerText = "Jeda selesai. Silakan lanjut!";
+                    btn.disabled = false;
+                    isWaiting = false;
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
