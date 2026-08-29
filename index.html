@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phone Sex Vulgar Edition</title>
+    <title>Phone Sex Vulgar Ultimate</title>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #0b0b0b; color: #f5f6fa; text-align: center; padding: 15px; margin: 0; }
         .card { background: #18191a; padding: 15px; border-radius: 12px; display: inline-block; width: 100%; max-width: 450px; box-shadow: 0 8px 20px rgba(255, 71, 87, 0.2); box-sizing: border-box; text-align: left; border: 1px solid #2f3542; }
@@ -54,12 +54,16 @@
             💬 <b>Respons Pacar:</b> <span id="notif-text">Menunggu...</span>
         </div>
 
-        <p class="dialogue" id="dialogue-text">"Tekan mulai, siapin suara beratmu, dan buat dia lemas di ujung telepon."</p>
+        <p class="dialogue" id="dialogue-text">"Nyalakan musik dulu, tekan mulai, dan buat dia lemas di ujung telepon."</p>
         <p class="timer" id="timer-text"></p>
 
         <div class="btn-group">
             <button id="next-btn" onclick="nextStep()">Lanjut Manual</button>
             <button id="auto-btn" class="btn-secondary" onclick="toggleAutoPlay()">Mulai Otomatis</button>
+        </div>
+
+        <div class="btn-group" id="restart-group" style="display: none;">
+            <button class="btn-warning" onclick="restartSession()" style="width: 100%;">🔄 Ulangi Sesi dari Awal</button>
         </div>
 
         <div class="section-box">
@@ -79,22 +83,22 @@
         </div>
 
         <div class="section-box">
-            <h4>Suasana Latar Belakang</h4>
+            <h4>Suasana Latar Belakang (Audio)</h4>
             <div class="audio-controls">
-                <span>Suasana Malam (Rileks)</span>
-                <button class="btn-secondary" onclick="toggleAudio()" id="audio-btn" style="flex: none; padding: 5px 10px; font-size: 12px;">Putar Musik</button>
+                <span id="audio-status">Status: Musik Mati</span>
+                <!-- Menggunakan audio stream alternatif yang stabil -->
+                <button class="btn-secondary" onclick="toggleAudio()" id="audio-btn" style="flex: none; padding: 6px 12px; font-size: 12px;">Nyalakan Musik</button>
             </div>
-            <audio id="ambient-audio" loop>
-                <source src="https://cdn.pixabay.com/download/audio/2021/09/06/audio_753a817478.mp3?filename=rain-and-thunder-nature-sounds-7591.mp3" type="audio/mpeg">
+            <audio id="ambient-audio" loop preload="auto">
+                <source src="https://freesound.org/data/previews/515/515823_6142169-lq.mp3" type="audio/mpeg">
             </audio>
         </div>
     </div>
 
     <script>
-        // Skrip dirombak total jadi jauh lebih vulgar, mentah, dan to the point ala obrolan panas
         let steps = [
             { stage: "1. Pemanasan Awal", dialogue: "Buka celana dalam kamu sekarang, sayang... bayangin aku ada di depan kamu sambil mandangin bodi telanjangmu." },
-            { stage: "2. Sentuhan Kasar", dialogue: "Tangan aku langsung ngeramasin teleran dada kamu yang kenyal... ngenyot puting kamu kenceng-kenceng sampe kamu mendesah." },
+            { stage: "2. Sentuhan Kasar", dialogue: "Tangan aku langsung ngeramasin dada kamu yang kenyal... ngenyot puting kamu kenceng-kenceng sampe kamu mendesah." },
             { stage: "3. Area Sensitif", dialogue: "Jari aku mulai colok masuk ke memek kamu yang udah becek... basah banget rasanya, minta dimainin." },
             { stage: "4. Pamer Batang", dialogue: "Punya aku udah keras parah, uratnya nribul semua gara-gara ngebayangin sempitnya lubang memek kamu." },
             { stage: "5. Mulai Ngentot Imajiner", dialogue: "Aku tancep batang aku ke memek kamu... *ahh*, sempit dan anget banget anjing, enak banget dijepit!" },
@@ -108,7 +112,7 @@
         let isAutoPlaying = false;
 
         let dares = [
-            "Tantangan: Coba sebutin ukuran atau bayangan bentuk punya aku di kepala kamu sekarang!",
+            "Tantangan: Coba sebutin warna celana dalam yang lagi kamu pake sekarang!",
             "Tantangan: Kirim chat: 'Aku pengen ditancep sekarang juga!' ke HP kamu.",
             "Tantangan: Pegang dada kamu sendiri terus bayangin itu tangan aku.",
             "Tantangan: Desah pelan di mic sekarang tanpa ngomong apa-apa selama 5 detik."
@@ -139,7 +143,8 @@
                     triggerVibration(200);
                 }
                 
-                startTimer(5);
+                // Jeda ditingkatkan jadi 8 detik agar lebih santai dan tidak terlalu buru-buru
+                startTimer(8); 
             } else {
                 endSession();
             }
@@ -188,6 +193,20 @@
             }
         }
 
+        function restartSession() {
+            currentIndex = -1;
+            isAutoPlaying = false;
+            document.getElementById("next-btn").style.display = "block";
+            document.getElementById("auto-btn").style.display = "block";
+            document.getElementById("auto-btn").innerText = "Mulai Otomatis";
+            document.getElementById("auto-btn").style.backgroundColor = "#2f3542";
+            document.getElementById("restart-group").style.display = "none";
+            document.getElementById("stage-text").innerText = "Mulai Ulang";
+            document.getElementById("dialogue-text").innerText = "\"Sesi diulang dari awal. Siap-siap bikin dia lemas lagi...\"";
+            document.getElementById("progress-bar").style.width = "0%";
+            document.getElementById("timer-text").innerText = "";
+        }
+
         function sendReaction(text) {
             let box = document.getElementById("notif-box");
             let textSpan = document.getElementById("notif-text");
@@ -216,14 +235,21 @@
         function toggleAudio() {
             let audio = document.getElementById("ambient-audio");
             let audioBtn = document.getElementById("audio-btn");
+            let audioStatus = document.getElementById("audio-status");
+            
             if (audio.paused) {
-                audio.play();
-                audioBtn.innerText = "Matikan Musik";
-                audioBtn.style.backgroundColor = "#eb4d4b";
+                audio.play().then(() => {
+                    audioBtn.innerText = "Matikan Musik";
+                    audioBtn.style.backgroundColor = "#eb4d4b";
+                    audioStatus.innerText = "Status: Musik Menyala";
+                }).catch(error => {
+                    alert("Gagal memutar audio. Coba tap tombol sekali lagi.");
+                });
             } else {
                 audio.pause();
-                audioBtn.innerText = "Putar Musik";
+                audioBtn.innerText = "Nyalakan Musik";
                 audioBtn.style.backgroundColor = "#2f3542";
+                audioStatus.innerText = "Status: Musik Mati";
             }
         }
 
@@ -233,6 +259,8 @@
             document.getElementById("timer-text").innerText = "";
             document.getElementById("next-btn").style.display = "none";
             document.getElementById("auto-btn").style.display = "none";
+            document.getElementById("restart-group.style.display") = "block"; // Munculkan tombol restart
+            document.getElementById("restart-group").style.display = "flex";
             document.getElementById("progress-bar").style.width = "100%";
             isAutoPlaying = false;
         }
