@@ -3,102 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat Dirty Talk Interactive</title>
+    <title>Extreme Vulgar Chat Interactive</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #0b0c10; color: #fff; text-align: center; padding: 10px; margin: 0; }
-        .card { background: #1f2833; padding: 15px; border-radius: 12px; display: inline-block; width: 100%; max-width: 450px; box-shadow: 0 0 25px rgba(255, 0, 76, 0.4); box-sizing: border-box; text-align: left; border: 2px solid #ff004c; }
-        h2 { text-align: center; color: #ff004c; margin-bottom: 8px; font-size: 18px; text-transform: uppercase; letter-spacing: 1px; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #050505; color: #fff; text-align: center; padding: 10px; margin: 0; }
+        .card { background: #111215; padding: 15px; border-radius: 12px; display: inline-block; width: 100%; max-width: 450px; box-shadow: 0 0 30px rgba(255, 0, 76, 0.5); box-sizing: border-box; text-align: left; border: 2px solid #ff004c; }
+        h2 { text-align: center; color: #ff004c; margin-bottom: 8px; font-size: 18px; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 0 10px rgba(255,0,76,0.8); }
 
-        /* Kotak Media (Foto & Video Berganti Tiap 3 Percakapan) */
         .media-container { width: 100%; height: 210px; background-color: #000; border-radius: 8px; margin-bottom: 10px; overflow: hidden; border: 2px solid #ff004c; display: flex; align-items: center; justify-content: center; position: relative; }
         .media-container img, .media-container video { width: 100%; height: 100%; object-fit: contain; }
 
-        /* Indikator Sesi & Progress */
-        .info-bar { display: flex; justify-content: space-between; font-size: 11px; color: #c5c6c7; margin-bottom: 8px; text-transform: uppercase; font-weight: bold; }
+        .info-bar { display: flex; justify-content: space-between; font-size: 11px; color: #ff6b81; margin-bottom: 8px; text-transform: uppercase; font-weight: bold; }
         
-        /* Area Percakapan Chat Style */
-        .chat-box { height: 250px; background: #0b0c10; border-radius: 8px; padding: 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; border: 1px solid #45a29e; margin-bottom: 10px; scroll-behavior: smooth; }
+        .chat-box { height: 260px; background: #0b0c10; border-radius: 8px; padding: 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; border: 1px solid #ff004c; margin-bottom: 10px; scroll-behavior: smooth; }
         
-        .bubble { max-width: 80%; padding: 8px 12px; border-radius: 10px; font-size: 13px; line-height: 1.4; word-wrap: break-word; }
+        .bubble { max-width: 82%; padding: 8px 12px; border-radius: 10px; font-size: 13px; line-height: 1.4; word-wrap: break-word; }
         .bubble.me { background: #ff004c; color: #fff; align-self: flex-end; border-bottom-right-radius: 2px; }
-        .bubble.partner { background: #c5c6c7; color: #0b0c10; align-self: flex-start; border-bottom-left-radius: 2px; font-weight: 500; }
+        .bubble.partner { background: #2f3542; color: #f5f6fa; align-self: flex-start; border-bottom-left-radius: 2px; font-weight: 500; border-left: 3px solid #ff6b81; }
         .bubble-sender { font-size: 10px; font-weight: bold; margin-bottom: 2px; opacity: 0.8; }
 
-        /* Tombol Aksi */
         .btn-action { background: linear-gradient(45deg, #ff004c, #ff4757); color: white; border: none; padding: 12px; font-size: 14px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; text-transform: uppercase; box-shadow: 0 4px 15px rgba(255,0,76,0.4); }
         .btn-action:hover { opacity: 0.9; }
 
-        .audio-section { margin-top: 10px; border-top: 1px solid #45a29e; padding-top: 6px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
-        .btn-sm { background-color: #45a29e; color: #0b0c10; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        .audio-section { margin-top: 10px; border-top: 1px solid #222; padding-top: 6px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
+        .btn-sm { background-color: #2f3542; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; border: 1px solid #ff004c; }
     </style>
 </head>
 <body>
 
     <div class="card">
-        <h2>🔥 Live Dirty Talk Chat 🔥</h2>
+        <h2>🔥 Extreme Dirty Talk Chat 🔥</h2>
         
-        <!-- Media Berganti Otomatis Tiap 3 Percakapan -->
         <div class="media-container" id="media-box">
             <video id="media-video" autoplay loop muted playsinline style="display:none;"></video>
-            <img id="media-img" src="static/1.jpg" alt="Media Sesi" onerror="this.src='https://via.placeholder.com/450x210/000/ff004c?text=Upload+1.jpg+s/d+7.jpg+di+folder+static'">
+            <img id="media-img" src="static/1.jpg" alt="Media Sesi" onerror="this.src='https://via.placeholder.com/450x210/000/ff004c?text=Upload+1.jpg+s/d+7.jpg'">
         </div>
 
         <div class="info-bar">
-            <span id="progress-text">Percakapan: 1 / 21</span>
-            <span id="media-label" style="color: #ff004c;">Media Aktif: 1 (Foto)</span>
+            <span id="progress-text">Percakapan: 1 / 30</span>
+            <span id="media-label" style="color: #ff004c;">Media Aktif: 1</span>
         </div>
 
-        <!-- Kotak Chat Percakapan -->
-        <div class="chat-box" id="chat-container">
-            <!-- Pesan awal akan masuk via JS -->
-        </div>
+        <div class="chat-box" id="chat-container"></div>
 
-        <!-- Tombol Lanjut Percakapan -->
-        <button class="btn-action" id="next-btn" onclick="nextChat()">Balas Chat Selanjutnya ➔</button>
+        <button class="btn-action" id="next-btn" onclick="nextChat()">Lanjut Chat Vulgar ➔</button>
 
         <div class="audio-section">
-            <span id="audio-status">Audio Atmosfer: Mati</span>
+            <span id="audio-status">Atmosfer: Mati</span>
             <button class="btn-sm" onclick="toggleSynthAudio()">Nyalakan Musik</button>
         </div>
     </div>
 
     <script>
-        // Database 21 Percakapan Saling Balas (Foreplay sampai Klimaks)
+        // Database 30 Percakapan Saling Balas (Sangat Vulgar & Panjang)
         const conversationFlow = [
-            // Sesi 1 (Media 1: Foto 1 & Video 1) -> Percakapan 1-3
-            { sender: "me", text: "Sayang, mandangin foto kamu nih. Baju merah itu bikin aku sange berat malam ini." },
-            { sender: "partner", text: "Hmm gombal terus.. Emang bagian mana yang bikin kamu paling pengen pegang?" },
-            { sender: "me", text: "Leher sama dada kamu.. Keliatan banget minta disosor sama diciumin kasar." },
+            // Tahap 1: Pemanasan & Lepas Baju (Media 1)
+            { sender: "me", text: "Sayang, buka baju kamu sekarang di depan HP. Aku mau mandangin tetek kamu yang kenyal malam ini." },
+            { sender: "partner", text: "Dih langsung suruh buka.. Malu tau denger suara kamu yang serak-serak basah begitu." },
+            { sender: "me", text: "Ga usah malu, kita mau phone sex panas. Cepat buka bajunya, liatin puting kamu ke kamera." },
+            { sender: "partner", text: "Iya nih.. udah kubuka bajunya. Dingin rasanya, tapi putingku langsung tegang gara-gara kamu." },
 
-            // Sesi 2 (Media 2: Foto 2 & Video 2) -> Percakapan 4-6
-            { sender: "partner", text: "Nakalnya mulai keluar ya.. Kalau aku udah di sebelah kamu, mau kamu apain?" },
-            { sender: "me", text: "Aku rebahin kamu di kasur, buka baju kamu pelan-pelan pake gigi aku." },
-            { sender: "partner", text: "Ahhh bayanginnya aja udah bikin kulit aku merinding.. Lanjut lagi sayang." },
+            // Tahap 2: Rangsangan Kulit & Sentuhan (Media 2)
+            { sender: "me", text: "Bagus, good girl. Sekarang bayangin tangan aku langsung ngeramasin tetek kamu kuat-kuat." },
+            { sender: "partner", text: "Ahhh shh.. pelan-pelan ngeramasnya, kenyal banget kan buah dada aku?" },
+            { sender: "me", text: "Kenyal dan empuk banget anjing, pengen aku gigit-gigit sampe kamu mendesah." },
+            { sender: "partner", text: "Ughh.. gigit aja sayang, aku suka kalau kamu kasarin sedikit malem ini." },
 
-            // Sesi 3 (Media 3: Foto 3 & Video 3) -> Percakapan 7-9
-            { sender: "me", text: "Tangan aku mulai turun ngelus perut kamu, ngerasain kulit kamu yang halus." },
-            { sender: "partner", text: "Duh.. jangan disentuh di situ, geli tapi rasanya bikin lemas.." },
-            { sender: "me", text: "Biarin lemas, karena jari aku bakal langsung masuk ke celana dalam kamu sekarang." },
+            // Tahap 3: Turun ke Selangkangan (Media 3)
+            { sender: "me", text: "Tangan aku turun ke perut kamu, ngelus-ngelus bulu halus di atas memek kamu." },
+            { sender: "partner", text: "Duh.. jangan disentuh di situ, rasanya udah basah banget di dalam.." },
+            { sender: "me", text: "Buka paha kamu lebar-lebar. Aku mau lihat seberapa becek lubang kamu buat aku." },
+            { sender: "partner", text: "Udah banjir sayang.. licin banget gara-gara air sange aku ngelewer ke paha.." },
 
-            // Sesi 4 (Media 4: Foto 4 & Video 4) -> Percakapan 10-12
-            { sender: "partner", text: "Ahh shh.. Jangan dibilang-bilang gitu, malu tau denger suara serak kamu.." },
-            { sender: "me", text: "Ga usah malu, rasain nih.. jari aku udah colok masuk ke memek kamu yang basah." },
-            { sender: "partner", text: "Ughh.. iya sayang, becek banget rasanya.. licin gara-gara air sange aku.." },
+            // Tahap 4: Colokan Jari (Media 4)
+            { sender: "me", text: "Rasain nih.. jari aku colok masuk dua-duanya ke dalam memek kamu yang sempit." },
+            { sender: "partner", text: "Ahhhhh shhh! Jari kamu dalem banget! Enak anjing, colok terus jangan berhenti!" },
+            { sender: "me", text: "Cor-cor suaranya kedengeran di telepon, becek parah lubang kamu minta disetubuhi." },
+            { sender: "partner", text: "Iyaaa.. aku sange berat, mau dimasukin sama batang kamu yang keras!" },
 
-            // Sesi 5 (Media 5: Foto 5 & Video 5) -> Percakapan 13-15
-            { sender: "me", text: "Punya aku udah keras parah, uratnya tegang ngebayangin sempitnya lubang kamu." },
-            { sender: "partner", text: "Tusuk aku sekarang sayang! Jangan ditahan lagi, cepetan masukin!" },
-            { sender: "me", text: "Jleb! Batang aku masuk telak ke dalam rahim kamu.. anget dan sempit banget anjir!" },
+            // Tahap 5: Pamer Batang & Persiapan Tusukan (Media 5)
+            { sender: "me", text: "Punya aku udah tegang parah, uratnya nribul semua ngeliat kebasahan kamu." },
+            { sender: "partner", text: "Tusuk aku sekarang sayang! Jangan ditahan lagi, cepetan tancep ke rahim aku!" },
+            { sender: "me", text: "Jleb! Batang aku masuk telak ke dalam lubang memek kamu.. sempit dan anget banget!" },
+            { sender: "partner", text: "Aghhh! Sempit banget batangnya nembus ke dalam! Enak banget dijepit rahim!" },
 
-            // Sesi 6 (Media 6: Foto 6 & Video 6) -> Percakapan 16-18
-            { sender: "partner", text: "Ahhh sakit tapi nikmat! Plak-plak! Genjot terus aku sampe mau pingsan!" },
-            { sender: "me", text: "Aku hantam makin kenceng! Denger suara desahan kamu bikin aku gak terkontrol!" },
-            { sender: "partner", text: "Udah mau keluar aku sayang! Bersamaan yaaa... Ahhh!" },
+            // Tahap 6: Hantaman Brutal (Media 6)
+            { sender: "me", text: "Aku genjot memek kamu makin kenceng tanpa ampun! Plak-plak-plak!" },
+            { sender: "partner", text: "Ahhh genjot terus! Hantam aku sepuasnya sampe aku lemas!" },
+            { sender: "me", text: "Dengerin suara hantaman daging kita di telepon, nikmat banget jepitan memek kamu." },
+            { sender: "partner", text: "Udah mau keluar aku sayang! Mau barengan klimaksnya!" },
 
-            // Sesi 7 (Media 7: Video 7) -> Percakapan 19-21 (Klimaks & Penutup)
-            { sender: "me", text: "Crot! Aku tumpahin semua sperma kental aku di dalam rahim kamu sampai luber!" },
-            { sender: "partner", text: "Ahhhhh crot dalem banget! Rasanya panas di dalam.. lemas semuanya.." },
-            { sender: "me", text: "Good girl. Sesi selesai, peluk guling erat-erat ya sayang, bobok nyenyak." }
+            // Tahap 7: Klimaks & Semburan Sperma (Media 7)
+            { sender: "me", text: "Aku gak tahan lagi! Aku tumpahin semua sperma kental aku di dalam rahim kamu!" },
+            { sender: "partner", text: "Ahhhhh crot dalem banget! Rasanya panas di dalam perutku... basah semuanya!" },
+            { sender: "me", text: "Crot terus! Biar rahim kamu penuh sama air mani aku." },
+            { sender: "partner", text: "Ughh lemas.. aku udah ga berdaya dibikin kamu.." },
+            { sender: "me", text: "Good girl. Lap paha kamu yang basah ya sayang, bobok yang nyenyak." },
+            { sender: "partner", text: "Iya sayang.. makasih malem ini puas banget. Mimpiin aku ya." }
         ];
 
         let currentIndex = 0;
@@ -108,27 +108,21 @@
         }
 
         function updateMediaDisplay(index) {
-            // Menentukan nomor media (1 sampai 7) berdasarkan setiap 3 percakapan
-            // Indeks 0-2 = Media 1, 3-5 = Media 2, dst.
-            let mediaGroup = Math.floor(index / 3) + 1;
-            if (mediaGroup > 7) mediaGroup = 7; // Batasi maksimal sampai 7
+            // Dibagi rata ke 7 media berdasarkan total 30 percakapan
+            let mediaGroup = Math.floor(index / 4.3) + 1;
+            if (mediaGroup > 7) mediaGroup = 7;
 
             let imgElem = document.getElementById("media-img");
             let vidElem = document.getElementById("media-video");
             let labelElem = document.getElementById("media-label");
 
-            // Aturan pergantian: Selang-seling atau tampilkan video/foto sesuai file lokal
-            // Disini kita buat sistem: Ganjil pakai foto (.jpg), Genap pakai video (.mp4) atau sebaliknya. 
-            // Sesuai request: "upload di static foto dan video yang saya kasih nama 1-7"
             if (mediaGroup % 2 === 0) {
-                // Tampilkan Video (.mp4)
                 imgElem.style.display = "none";
                 vidElem.style.display = "block";
                 vidElem.src = `static/${mediaGroup}.mp4`;
                 vidElem.play();
                 labelElem.innerText = `Media Aktif: ${mediaGroup}.mp4 (Video)`;
             } else {
-                // Tampilkan Foto (.jpg)
                 vidElem.style.display = "none";
                 imgElem.style.display = "block";
                 imgElem.src = `static/${mediaGroup}.jpg`;
@@ -141,7 +135,6 @@
                 let chatContainer = document.getElementById("chat-container");
                 let data = conversationFlow[currentIndex];
 
-                // Buat elemen bubble chat
                 let bubble = document.createElement("div");
                 bubble.className = `bubble ${data.sender}`;
                 
@@ -156,18 +149,14 @@
                 bubble.appendChild(textNode);
                 chatContainer.appendChild(bubble);
 
-                // Auto scroll ke bawah chat terbaru
                 chatContainer.scrollTop = chatContainer.scrollHeight;
 
-                // Perbarui media (tiap 3 percakapan berganti)
                 updateMediaDisplay(currentIndex);
 
-                // Update teks progress
                 document.getElementById("progress-text").innerText = `Percakapan: ${currentIndex + 1} / ${conversationFlow.length}`;
 
-                // Efek getar HP
-                if (currentIndex >= 15) {
-                    triggerVibration([400, 100, 500, 100, 700]); // Getar kuat pas klimaks
+                if (currentIndex >= 20) {
+                    triggerVibration([500, 100, 600, 100, 900]);
                 } else {
                     triggerVibration(150);
                 }
@@ -175,19 +164,16 @@
                 currentIndex++;
 
                 if (currentIndex >= conversationFlow.length) {
-                    document.getElementById("next-btn.style.display") = "none";
-                    document.getElementById("next-btn").innerText = "Sesi Percakapan Selesai 🔥";
+                    document.getElementById("next-btn").innerText = "Sesi Obrolan Selesai 🔥";
                     document.getElementById("next-btn").disabled = true;
                 }
             }
         }
 
-        // Jalankan percakapan pertama otomatis saat halaman dibuka
         window.onload = function() {
             nextChat();
         };
 
-        // Audio Sintetis Latar Belakang
         let audioCtx = null, synthInterval = null, isMusicPlaying = false;
         function toggleSynthAudio() {
             let btn = document.querySelector(".audio-section .btn-sm");
@@ -208,13 +194,13 @@
                 }, 2500);
                 isMusicPlaying = true;
                 btn.innerText = "Matikan";
-                status.innerText = "Audio Atmosfer: Menyala";
+                status.innerText = "Atmosfer: Menyala";
             } else {
                 isMusicPlaying = false;
                 clearInterval(synthInterval);
                 if (audioCtx) { audioCtx.close(); audioCtx = null; }
                 btn.innerText = "Nyalakan";
-                status.innerText = "Audio Atmosfer: Mati";
+                status.innerText = "Atmosfer: Mati";
             }
         }
     </script>
