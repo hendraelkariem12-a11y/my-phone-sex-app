@@ -3,255 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Erotic Interactive Story Arc</title>
+    <title>Chat Dirty Talk Interactive</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #020202; color: #fff; text-align: center; padding: 10px; margin: 0; user-select: none; }
-        .card { background: #0f1014; padding: 15px; border-radius: 12px; display: inline-block; width: 100%; max-width: 450px; box-shadow: 0 0 35px rgba(255, 0, 76, 0.6); box-sizing: border-box; text-align: left; border: 2px solid #ff004c; position: relative; overflow: hidden; }
-        h2 { text-align: center; color: #ff004c; margin-bottom: 5px; font-size: 19px; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 12px rgba(255,0,76,0.9); }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #0b0c10; color: #fff; text-align: center; padding: 10px; margin: 0; }
+        .card { background: #1f2833; padding: 15px; border-radius: 12px; display: inline-block; width: 100%; max-width: 450px; box-shadow: 0 0 25px rgba(255, 0, 76, 0.4); box-sizing: border-box; text-align: left; border: 2px solid #ff004c; }
+        h2 { text-align: center; color: #ff004c; margin-bottom: 8px; font-size: 18px; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* Kotak Media (Foto & Video Berganti Tiap 3 Percakapan) */
+        .media-container { width: 100%; height: 210px; background-color: #000; border-radius: 8px; margin-bottom: 10px; overflow: hidden; border: 2px solid #ff004c; display: flex; align-items: center; justify-content: center; position: relative; }
+        .media-container img, .media-container video { width: 100%; height: 100%; object-fit: contain; }
+
+        /* Indikator Sesi & Progress */
+        .info-bar { display: flex; justify-content: space-between; font-size: 11px; color: #c5c6c7; margin-bottom: 8px; text-transform: uppercase; font-weight: bold; }
         
-        #route-menu { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10,10,12,0.97); z-index: 10; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; text-align: center; }
-        #route-menu h3 { color: #ff6b81; margin-bottom: 15px; text-transform: uppercase; font-size: 16px; }
-        .route-btn { background: #2f3542; color: #fff; border: 2px solid #ff004c; padding: 12px; width: 100%; border-radius: 8px; margin-bottom: 10px; font-weight: bold; cursor: pointer; font-size: 13px; transition: 0.2s; }
-        .route-btn:hover { background: #ff004c; }
-
-        .photo-container { width: 100%; height: 210px; background-color: #000; border-radius: 8px; margin-bottom: 10px; overflow: hidden; border: 2px solid #ff004c; display: flex; align-items: center; justify-content: center; position: relative; }
-        .photo-container img { width: 100%; height: 100%; object-fit: contain; }
-
-        .arousal-label { display: flex; justify-content: space-between; font-size: 11px; font-weight: bold; color: #ff6b81; margin-bottom: 3px; text-transform: uppercase; }
-        .arousal-container { width: 100%; background-color: #222; border-radius: 6px; margin-bottom: 10px; overflow: hidden; height: 14px; border: 1px solid #ff004c; }
-        .arousal-bar { width: 10%; height: 100%; background: linear-gradient(90deg, #ff4757, #ff004c, #9000ff); transition: width 0.3s ease; }
-
-        .story-box { font-size: 16px; margin: 8px 0 12px 0; font-style: italic; line-height: 1.5; color: #f5f6fa; min-height: 90px; background: #1a1b1e; padding: 12px; border-radius: 8px; border-left: 4px solid #ff004c; }
+        /* Area Percakapan Chat Style */
+        .chat-box { height: 250px; background: #0b0c10; border-radius: 8px; padding: 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; border: 1px solid #45a29e; margin-bottom: 10px; scroll-behavior: smooth; }
         
-        .choice-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin-bottom: 8px; }
-        .choice-btn { background-color: #2f3542; color: #fff; border: 1px solid #ff004c; padding: 11px; font-size: 13px; border-radius: 6px; cursor: pointer; text-align: left; font-weight: bold; transition: 0.2s; }
-        .choice-btn:hover { background-color: #ff004c; color: #fff; }
+        .bubble { max-width: 80%; padding: 8px 12px; border-radius: 10px; font-size: 13px; line-height: 1.4; word-wrap: break-word; }
+        .bubble.me { background: #ff004c; color: #fff; align-self: flex-end; border-bottom-right-radius: 2px; }
+        .bubble.partner { background: #c5c6c7; color: #0b0c10; align-self: flex-start; border-bottom-left-radius: 2px; font-weight: 500; }
+        .bubble-sender { font-size: 10px; font-weight: bold; margin-bottom: 2px; opacity: 0.8; }
 
-        .section-box { margin-top: 10px; border-top: 1px solid #222; padding-top: 8px; }
-        .audio-controls { display: flex; justify-content: space-between; align-items: center; background: #1a1b1e; padding: 6px 10px; border-radius: 6px; font-size: 12px; }
-        .btn-sm { background-color: #2f3542; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
+        /* Tombol Aksi */
+        .btn-action { background: linear-gradient(45deg, #ff004c, #ff4757); color: white; border: none; padding: 12px; font-size: 14px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; text-transform: uppercase; box-shadow: 0 4px 15px rgba(255,0,76,0.4); }
+        .btn-action:hover { opacity: 0.9; }
 
-        @keyframes shake {
-            0% { transform: translate(1px, 1px); }
-            50% { transform: translate(-3px, 0px); }
-            100% { transform: translate(1px, -2px); }
-        }
-        .shake-effect { animation: shake 0.3s; }
-        .extreme-hot { box-shadow: 0 0 50px rgba(255,0,76,0.9) !important; border-color: #fff !important; }
+        .audio-section { margin-top: 10px; border-top: 1px solid #45a29e; padding-top: 6px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
+        .btn-sm { background-color: #45a29e; color: #0b0c10; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <div class="card" id="main-card">
-        <!-- MENU PILIHAN CERITA -->
-        <div id="route-menu">
-            <h3>Pilih Babak Cerita Malam Ini 🔥</h3>
-            <button class="route-btn" onclick="startStory('bedroom')">🌙 Babak 1: Godaan di Kamar Tidur (Sensual & Basah)</button>
-            <button class="route-btn" onclick="startStory('wild')">⚡ Babak 2: Eksekusi Brutal Tanpa Ampun (Hardcore)</button>
-        </div>
-
-        <h2 id="chapter-title">🔥 Erotic Story Arc 🔥</h2>
+    <div class="card">
+        <h2>🔥 Live Dirty Talk Chat 🔥</h2>
         
-        <div class="photo-container">
-            <img id="partner-photo" src="static/1.jpg" alt="Foto Pacar" onerror="this.src='https://via.placeholder.com/450x210/000/ff004c?text=Upload+1.jpg+s/d+8.jpg'">
+        <!-- Media Berganti Otomatis Tiap 3 Percakapan -->
+        <div class="media-container" id="media-box">
+            <video id="media-video" autoplay loop muted playsinline style="display:none;"></video>
+            <img id="media-img" src="static/1.jpg" alt="Media Sesi" onerror="this.src='https://via.placeholder.com/450x210/000/ff004c?text=Upload+1.jpg+s/d+7.jpg+di+folder+static'">
         </div>
 
-        <div class="arousal-label">
-            <span id="story-progress">Babak: 1 / 6</span>
-            <span id="arousal-text">20% (Mulai Terangsang)</span>
-        </div>
-        <div class="arousal-container">
-            <div class="arousal-bar" id="arousal-bar"></div>
+        <div class="info-bar">
+            <span id="progress-text">Percakapan: 1 / 21</span>
+            <span id="media-label" style="color: #ff004c;">Media Aktif: 1 (Foto)</span>
         </div>
 
-        <!-- NARASI CERITA UTAMA -->
-        <div class="story-box" id="story-text">"Pilih babak cerita kamu di awal untuk memulai imajinasi..."</div>
-
-        <!-- PILIHAN CABANG CERITA INTERAKTIF -->
-        <div class="choice-grid" id="choice-container">
-            <!-- Tombol pilihan cerita muncul di sini -->
+        <!-- Kotak Chat Percakapan -->
+        <div class="chat-box" id="chat-container">
+            <!-- Pesan awal akan masuk via JS -->
         </div>
 
-        <div class="section-box">
-            <h4>Audio Atmosfer</h4>
-            <div class="audio-controls">
-                <span id="audio-status">Status: Mati</span>
-                <button class="btn-sm" onclick="toggleSynthAudio()" id="audio-btn">Nyalakan</button>
-            </div>
+        <!-- Tombol Lanjut Percakapan -->
+        <button class="btn-action" id="next-btn" onclick="nextChat()">Balas Chat Selanjutnya ➔</button>
+
+        <div class="audio-section">
+            <span id="audio-status">Audio Atmosfer: Mati</span>
+            <button class="btn-sm" onclick="toggleSynthAudio()">Nyalakan Musik</button>
         </div>
     </div>
 
     <script>
-        let arousalLevel = 20;
-        let currentStepIndex = 0;
-        let currentStoryKey = 'bedroom';
+        // Database 21 Percakapan Saling Balas (Foreplay sampai Klimaks)
+        const conversationFlow = [
+            // Sesi 1 (Media 1: Foto 1 & Video 1) -> Percakapan 1-3
+            { sender: "me", text: "Sayang, mandangin foto kamu nih. Baju merah itu bikin aku sange berat malam ini." },
+            { sender: "partner", text: "Hmm gombal terus.. Emang bagian mana yang bikin kamu paling pengen pegang?" },
+            { sender: "me", text: "Leher sama dada kamu.. Keliatan banget minta disosor sama diciumin kasar." },
 
-        // DATABASE CERITA INTERAKTIF BERBENTUK CABANG ALUR
-        const storyDatabase = {
-            "bedroom": [
-                {
-                    text: "Malam makin larut, lampu kamar dimaramkan redup. Kamu menatap foto aku di layar, sementara suaraku berbisik lembut lewat telepon: 'Sayang... bayangin tangan aku perlahan buka kancing baju kamu satu-satu...'",
-                    photo: "static/1.jpg",
-                    choices: [
-                        { text: "🔥 'Aku udah buka bajuku sayang... rasain dingin angin malam di kulit dadaku.'", next: 1, boost: 20 },
-                        { text: "💦 'Jangan dibuka dulu, biarin kamu yang buka pake gigi kamu perlahan...'", next: 1, boost: 25 }
-                    ]
-                },
-                {
-                    text: "Napas kita berdua mulai memburu di sambungan telepon. Suaraku berubah serak: 'Kulit kamu merinding ya? Sekarang bayangin tangan aku turun ngelus perut kamu, masuk ke dalam karet celana dalam kamu...'",
-                    photo: "static/2.jpg",
-                    choices: [
-                        { text: "🔥 'Udah basah banget sayang... jariku udah main di selangkanganku.'", next: 2, boost: 25 },
-                        { text: "💦 'Tangan kamu dingin nakal banget... cepetan masuk ke dalam, aku udah sange.'", next: 2, boost: 30 }
-                    ]
-                },
-                {
-                    text: "'Denger suara desahan kamu bikin aku gak tahan,' bisikku di telingamu. 'Bayangin aku sekarang udah nindih badan kamu, cium bibir kamu kasar, dan gesek-gesekin batang aku yang udah keras banget di lubang memek kamu...'",
-                    photo: "static/3.jpg",
-                    choices: [
-                        { text: "🔥 'Tusuk sekarang sayang! Jangan ditahan lagi, aku mau punya kamu!'", next: 3, boost: 30 },
-                        { text: "💦 'Pelan-pelan dulu... nikmatin basahnya lubangku yang jepit batang kamu.'", next: 3, boost: 35 }
-                    ]
-                },
-                {
-                    text: "Jleb! Bayangan itu terasa nyata saat kamu ngebayangin hantaman pertamanya. Suara decitan ranjang imajiner berpadu dengan desahan kami berdua di telepon.",
-                    photo: "static/4.jpg",
-                    choices: [
-                        { text: "🔥 'Ahhh sakitt tapi nikmat banget! Genjot terus aku!'", next: 4, boost: 35 },
-                        { text: "💦 'Kencengin lagi! Plak-plak! Biar aku lemas di bawah kamu!'", next: 4, boost: 40 }
-                    ]
-                },
-                {
-                    text: "Gairah mencapai puncaknya. Bar gairah hampir penuh, seluruh tubuh merinding hebat ngebayangin cairan panas yang siap disemprotkan.",
-                    photo: "static/5.jpg",
-                    choices: [
-                        { text: "🔥 'Crotin di dalam rahim aku! Tumpahin semuanya sekarang!'", next: 5, boost: 50 },
-                        { text: "💦 'Ahhh mau keluar juga! Bersamaan ya sayang! Crot!'", next: 5, boost: 50 }
-                    ]
-                },
-                {
-                    text: "Sesi cerita malam ini berakhir dengan napas tersengal-sengal dan pelukan imajiner yang erat. Selamat istirahat, kesayangan.",
-                    photo: "static/8.jpg",
-                    choices: [
-                        { text: "🔄 Ulangi Babak Cerita dari Awal", restart: true }
-                    ]
-                }
-            ],
-            "wild": [
-                {
-                    text: "Tanpa basa-basi, langsung cabut pakaianmu sekarang juga! Suaraku menggelegar di telepon dengan nada menuntut: 'Buka paha kamu lebar-lebar, liat ke layar dan bayangin aku jilat sekujur tubuhmu sampai lemas!'",
-                    photo: "static/1.jpg",
-                    choices: [
-                        { text: "🔥 'Udah telanjang bulat di depan HP! Jilat aku sekarang!'", next: 1, boost: 25 },
-                        { text: "💦 'Aku udah sange berat, langsung hajar aja jangan lama-lama!'", next: 1, boost: 30 }
-                    ]
-                },
-                {
-                    text: "'Hebat, good girl,' geramku. 'Dua jari aku langsung colok kasar ke memek kamu yang udah banjir! Rasain enaknya tusukan jariku pas kamu lagi posisi nungging!'",
-                    photo: "static/3.jpg",
-                    choices: [
-                        { text: "🔥 'Ahhh jari kamu dalem banget! Becek parah lubangku!'", next: 2, boost: 30 },
-                        { text: "💦 'Colok terus pake tiga jari! Aku mau batang kamu sekarang!'", next: 2, boost: 35 }
-                    ]
-                },
-                {
-                    text: "Tanpa ampun, bayangan batang keras berurat besar langsung menghantam lubang memekmu tanpa jeda. Suara decakan dan erangan brutal memenuhi telepon.",
-                    photo: "static/5.jpg",
-                    choices: [
-                        { text: "🔥 'Hantam terus! Anjing enak banget batangnya masuk rahim!'", next: 3, boost: 40 },
-                        { text: "💦 'Genjot brutal! Aku mau pingsan rasanya keenakan!'", next: 3, boost: 45 }
-                    ]
-                },
-                {
-                    text: "Detik-detik klimaks meledak! Semburan sperma panas dimuntahkan langsung ke dalam tanpa sisa, membuat sekujur tubuh lemas tak berdaya.",
-                    photo: "static/7.jpg",
-                    choices: [
-                        { text: "🔥 'Crot dalem banget! Hamilin aku sekarang juga!'", next: 4, boost: 60 },
-                        { text: "💦 'Ahhhhh crot! Lemas... basah semuanya...'", next: 4, boost: 60 }
-                    ]
-                },
-                {
-                    text: "Sesi brutal selesai. Jantung berdegup kencang, sisa-sisa gairah masih terasa hangat di sekujur tubuh.",
-                    photo: "static/8.jpg",
-                    choices: [
-                        { text: "🔄 Ulangi Babak Brutal dari Awal", restart: true }
-                    ]
-                }
-            ]
-        };
+            // Sesi 2 (Media 2: Foto 2 & Video 2) -> Percakapan 4-6
+            { sender: "partner", text: "Nakalnya mulai keluar ya.. Kalau aku udah di sebelah kamu, mau kamu apain?" },
+            { sender: "me", text: "Aku rebahin kamu di kasur, buka baju kamu pelan-pelan pake gigi aku." },
+            { sender: "partner", text: "Ahhh bayanginnya aja udah bikin kulit aku merinding.. Lanjut lagi sayang." },
 
-        function startStory(storyKey) {
-            currentStoryKey = storyKey;
-            currentStepIndex = 0;
-            arousalLevel = 20;
-            document.getElementById("route-menu").style.display = "none";
-            document.getElementById("chapter-title").innerText = storyKey === 'bedroom' ? "🌙 Babak: Kamar Tidur" : "⚡ Babak: Eksekusi Brutal";
-            renderStep();
-        }
+            // Sesi 3 (Media 3: Foto 3 & Video 3) -> Percakapan 7-9
+            { sender: "me", text: "Tangan aku mulai turun ngelus perut kamu, ngerasain kulit kamu yang halus." },
+            { sender: "partner", text: "Duh.. jangan disentuh di situ, geli tapi rasanya bikin lemas.." },
+            { sender: "me", text: "Biarin lemas, karena jari aku bakal langsung masuk ke celana dalam kamu sekarang." },
+
+            // Sesi 4 (Media 4: Foto 4 & Video 4) -> Percakapan 10-12
+            { sender: "partner", text: "Ahh shh.. Jangan dibilang-bilang gitu, malu tau denger suara serak kamu.." },
+            { sender: "me", text: "Ga usah malu, rasain nih.. jari aku udah colok masuk ke memek kamu yang basah." },
+            { sender: "partner", text: "Ughh.. iya sayang, becek banget rasanya.. licin gara-gara air sange aku.." },
+
+            // Sesi 5 (Media 5: Foto 5 & Video 5) -> Percakapan 13-15
+            { sender: "me", text: "Punya aku udah keras parah, uratnya tegang ngebayangin sempitnya lubang kamu." },
+            { sender: "partner", text: "Tusuk aku sekarang sayang! Jangan ditahan lagi, cepetan masukin!" },
+            { sender: "me", text: "Jleb! Batang aku masuk telak ke dalam rahim kamu.. anget dan sempit banget anjir!" },
+
+            // Sesi 6 (Media 6: Foto 6 & Video 6) -> Percakapan 16-18
+            { sender: "partner", text: "Ahhh sakit tapi nikmat! Plak-plak! Genjot terus aku sampe mau pingsan!" },
+            { sender: "me", text: "Aku hantam makin kenceng! Denger suara desahan kamu bikin aku gak terkontrol!" },
+            { sender: "partner", text: "Udah mau keluar aku sayang! Bersamaan yaaa... Ahhh!" },
+
+            // Sesi 7 (Media 7: Video 7) -> Percakapan 19-21 (Klimaks & Penutup)
+            { sender: "me", text: "Crot! Aku tumpahin semua sperma kental aku di dalam rahim kamu sampai luber!" },
+            { sender: "partner", text: "Ahhhhh crot dalem banget! Rasanya panas di dalam.. lemas semuanya.." },
+            { sender: "me", text: "Good girl. Sesi selesai, peluk guling erat-erat ya sayang, bobok nyenyak." }
+        ];
+
+        let currentIndex = 0;
 
         function triggerVibration(pattern) {
             if ("vibrate" in navigator) { navigator.vibrate(pattern); }
         }
 
-        function updateArousal(amount) {
-            arousalLevel = Math.min(100, arousalLevel + amount);
-            let bar = document.getElementById("arousal-bar");
-            let text = document.getElementById("arousal-text");
-            bar.style.width = arousalLevel + "%";
+        function updateMediaDisplay(index) {
+            // Menentukan nomor media (1 sampai 7) berdasarkan setiap 3 percakapan
+            // Indeks 0-2 = Media 1, 3-5 = Media 2, dst.
+            let mediaGroup = Math.floor(index / 3) + 1;
+            if (mediaGroup > 7) mediaGroup = 7; // Batasi maksimal sampai 7
 
-            let card = document.getElementById("main-card");
-            card.classList.add("shake-effect");
-            setTimeout(() => card.classList.remove("shake-effect"), 300);
+            let imgElem = document.getElementById("media-img");
+            let vidElem = document.getElementById("media-video");
+            let labelElem = document.getElementById("media-label");
 
-            if (arousalLevel < 70) {
-                text.innerText = arousalLevel + "% (Sange Berat 🔥)";
-                card.classList.remove("extreme-hot");
+            // Aturan pergantian: Selang-seling atau tampilkan video/foto sesuai file lokal
+            // Disini kita buat sistem: Ganjil pakai foto (.jpg), Genap pakai video (.mp4) atau sebaliknya. 
+            // Sesuai request: "upload di static foto dan video yang saya kasih nama 1-7"
+            if (mediaGroup % 2 === 0) {
+                // Tampilkan Video (.mp4)
+                imgElem.style.display = "none";
+                vidElem.style.display = "block";
+                vidElem.src = `static/${mediaGroup}.mp4`;
+                vidElem.play();
+                labelElem.innerText = `Media Aktif: ${mediaGroup}.mp4 (Video)`;
             } else {
-                text.innerText = arousalLevel + "% (ORGASMIS 💦)";
-                card.classList.add("extreme-hot");
+                // Tampilkan Foto (.jpg)
+                vidElem.style.display = "none";
+                imgElem.style.display = "block";
+                imgElem.src = `static/${mediaGroup}.jpg`;
+                labelElem.innerText = `Media Aktif: ${mediaGroup}.jpg (Foto)`;
             }
         }
 
-        function renderStep() {
-            let storyList = storyDatabase[currentStoryKey];
-            if (currentStepIndex < storyList.length) {
-                let data = storyList[currentStepIndex];
-                document.getElementById("story-text").innerText = `"${data.text}"`;
-                document.getElementById("partner-photo").src = data.photo;
-                document.getElementById("story-progress").innerText = `Babak: ${currentStepIndex + 1} / ${storyList.length}`;
+        function nextChat() {
+            if (currentIndex < conversationFlow.length) {
+                let chatContainer = document.getElementById("chat-container");
+                let data = conversationFlow[currentIndex];
 
-                let container = document.getElementById("choice-container");
-                container.innerHTML = "";
+                // Buat elemen bubble chat
+                let bubble = document.createElement("div");
+                bubble.className = `bubble ${data.sender}`;
+                
+                let senderName = document.createElement("div");
+                senderName.className = "bubble-sender";
+                senderName.innerText = data.sender === "me" ? "Kamu (Hendra)" : "Pacar (Nisa)";
+                
+                let textNode = document.createElement("div");
+                textNode.innerText = data.text;
 
-                data.choices.forEach(c => {
-                    let btn = document.createElement("button");
-                    btn.className = "choice-btn";
-                    btn.innerText = c.text;
-                    btn.onclick = () => {
-                        if (c.restart) {
-                            document.getElementById("route-menu").style.display = "flex";
-                        } else {
-                            updateArousal(c.boost);
-                            currentStepIndex = c.next;
-                            renderStep();
-                            triggerVibration([300, 100, 400]);
-                        }
-                    };
-                    container.appendChild(btn);
-                });
+                bubble.appendChild(senderName);
+                bubble.appendChild(textNode);
+                chatContainer.appendChild(bubble);
 
-                if (currentStepIndex >= 3) {
-                    triggerVibration([400, 100, 500, 100, 700]);
+                // Auto scroll ke bawah chat terbaru
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+
+                // Perbarui media (tiap 3 percakapan berganti)
+                updateMediaDisplay(currentIndex);
+
+                // Update teks progress
+                document.getElementById("progress-text").innerText = `Percakapan: ${currentIndex + 1} / ${conversationFlow.length}`;
+
+                // Efek getar HP
+                if (currentIndex >= 15) {
+                    triggerVibration([400, 100, 500, 100, 700]); // Getar kuat pas klimaks
                 } else {
                     triggerVibration(150);
+                }
+
+                currentIndex++;
+
+                if (currentIndex >= conversationFlow.length) {
+                    document.getElementById("next-btn.style.display") = "none";
+                    document.getElementById("next-btn").innerText = "Sesi Percakapan Selesai 🔥";
+                    document.getElementById("next-btn").disabled = true;
                 }
             }
         }
 
-        // Audio Sintetis
+        // Jalankan percakapan pertama otomatis saat halaman dibuka
+        window.onload = function() {
+            nextChat();
+        };
+
+        // Audio Sintetis Latar Belakang
         let audioCtx = null, synthInterval = null, isMusicPlaying = false;
         function toggleSynthAudio() {
-            let btn = document.getElementById("audio-btn");
+            let btn = document.querySelector(".audio-section .btn-sm");
             let status = document.getElementById("audio-status");
             if (!isMusicPlaying) {
                 audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -269,13 +208,13 @@
                 }, 2500);
                 isMusicPlaying = true;
                 btn.innerText = "Matikan";
-                status.innerText = "Status: Menyala (Bass Hot)";
+                status.innerText = "Audio Atmosfer: Menyala";
             } else {
                 isMusicPlaying = false;
                 clearInterval(synthInterval);
                 if (audioCtx) { audioCtx.close(); audioCtx = null; }
                 btn.innerText = "Nyalakan";
-                status.innerText = "Status: Mati";
+                status.innerText = "Audio Atmosfer: Mati";
             }
         }
     </script>
