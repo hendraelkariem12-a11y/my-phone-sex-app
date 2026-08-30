@@ -3,12 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phone Sex Extreme Edition</title>
+    <title>Phone Sex Extreme Edition with Photo Gallery</title>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #050505; color: #f5f6fa; text-align: center; padding: 15px; margin: 0; transition: background 0.5s; }
         .card { background: #141517; padding: 15px; border-radius: 12px; display: inline-block; width: 100%; max-width: 450px; box-shadow: 0 8px 25px rgba(255, 71, 87, 0.4); box-sizing: border-box; text-align: left; border: 1px solid #ff4757; }
         h2 { text-align: center; color: #ff4757; margin-bottom: 8px; font-size: 21px; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 0 10px rgba(255,71,87,0.5); }
         
+        /* Kotak Foto Pacar */
+        .photo-container { width: 100%; height: 220px; background-color: #1f2023; border-radius: 8px; margin-bottom: 12px; overflow: hidden; border: 2px solid #ff4757; display: flex; align-items: center; justify-content: center; position: relative; }
+        .photo-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .photo-container img:hover { transform: scale(1.05); }
+
         .progress-container { width: 100%; background-color: #2f3542; border-radius: 5px; margin-bottom: 12px; overflow: hidden; height: 8px; }
         .progress-bar { width: 0%; height: 100%; background-color: #ff4757; transition: width 0.3s ease; }
 
@@ -23,7 +28,6 @@
         .btn-secondary { background-color: #2f3542; }
         .btn-secondary:hover { background-color: #57606f; }
         .btn-warning { background-color: #e67e22; }
-        .btn-success { background-color: #2ed573; color: #000; }
 
         .section-box { margin-top: 15px; border-top: 1px solid #2f3542; padding-top: 10px; }
         .section-box h4 { margin: 0 0 6px 0; font-size: 13px; color: #a4b0be; }
@@ -36,11 +40,11 @@
         
         .audio-controls { display: flex; justify-content: space-between; align-items: center; background: #2f3542; padding: 6px 10px; border-radius: 6px; font-size: 13px; }
 
-        /* Efek Denyut Berair / Panas di Tahap Akhir */
         @keyframes pulse-red {
             0% { box-shadow: 0 0 10px rgba(255,71,87,0.4); }
             50% { box-shadow: 0 0 30px rgba(255,71,87,0.9); border-color: #fff; }
             100% { box-shadow: 0 0 10px rgba(255,71,87,0.4); }
+        }
         .card-hot { animation: pulse-red 1.5s infinite; }
     </style>
 </head>
@@ -49,6 +53,11 @@
     <div class="card" id="main-card">
         <h2>🔥 Phone Sex Extreme 🔥</h2>
         
+        <!-- Area Tampil Foto Pacar Berubah Otomatis -->
+        <div class="photo-container">
+            <img id="partner-photo" src="static/1.jpg" alt="Foto Pacar" onerror="this.src='https://via.placeholder.com/450x220/1f2023/ff4757?text=Upload+foto+1.jpg+ke+folder+static'">
+        </div>
+
         <div class="progress-container">
             <div class="progress-bar" id="progress-bar"></div>
         </div>
@@ -70,7 +79,6 @@
             <button id="auto-btn" class="btn-secondary" onclick="toggleAutoPlay()">Mulai Otomatis</button>
         </div>
 
-        <!-- Tombol Ulangi Sesi (Selalu siap muncul) -->
         <div class="btn-group" id="restart-group" style="display: none; margin-bottom: 8px;">
             <button class="btn-warning" onclick="restartSession()" style="width: 100%;">🔄 Ulangi Sesi dari Awal</button>
         </div>
@@ -102,14 +110,14 @@
 
     <script>
         let steps = [
-            { stage: "1. Pemanasan Awal", dialogue: "Buka celana dalam kamu sekarang, sayang... bayangin aku ada di depan kamu sambil mandangin bodi telanjangmu yang basah." },
-            { stage: "2. Sentuhan Kasar", dialogue: "Tangan aku langsung ngeramasin dada kamu yang kenyal... ngenyot puting kamu kenceng-kenceng sampe kamu mendesah keenakan." },
-            { stage: "3. Area Sensitif", dialogue: "Jari aku mulai colok masuk ke memek kamu yang udah berair... licin banget rasanya, minta dikelonin sama batang aku." },
-            { stage: "4. Pamer Batang", dialogue: "Punya aku udah keras parah, urat-uratnya nribul semua gara-gara ngebayangin sempitnya lubang memek kamu yang lagi nungguin." },
-            { stage: "5. Mulai Ngentot Imajiner", dialogue: "Aku tancep batang aku ke memek kamu... *ahh*, sempit dan anget banget anjing, enak banget dijepit rahim kamu!" },
-            { stage: "6. Hantaman Brutal", dialogue: "Aku genjot memek kamu makin kenceng tanpa ampun! *Crot-crot... ahh...* dengerin suara hantaman aku di telinga kamu!" },
-            { stage: "7. Klimaks / Semprot", dialogue: "Aku gak tahan lagi! Aku tumpahin semua sperma kental dan panas aku di dalam rahim kamu... *ahh, crot dalem banget!*" },
-            { stage: "8. Penutup", dialogue: "Fyuuh... lemas banget. Lap paha kamu yang basah ya sayang, peluk guling dan bobok yang nyenyak." }
+            { stage: "1. Pemanasan Awal", dialogue: "Buka celana dalam kamu sekarang, sayang... bayangin aku ada di depan kamu sambil mandangin bodi telanjangmu yang basah.", photo: "static/1.jpg" },
+            { stage: "2. Sentuhan Kasar", dialogue: "Tangan aku langsung ngeramasin dada kamu yang kenyal... ngenyot puting kamu kenceng-kenceng sampe kamu mendesah keenakan.", photo: "static/2.jpg" },
+            { stage: "3. Area Sensitif", dialogue: "Jari aku mulai colok masuk ke memek kamu yang udah berair... licin banget rasanya, minta dikelonin sama batang aku.", photo: "static/3.jpg" },
+            { stage: "4. Pamer Batang", dialogue: "Punya aku udah keras parah, urat-uratnya nribul semua gara-gara ngebayangin sempitnya lubang memek kamu yang lagi nungguin.", photo: "static/4.jpg" },
+            { stage: "5. Mulai Ngentot Imajiner", dialogue: "Aku tancep batang aku ke memek kamu... *ahh*, sempit dan anget banget anjing, enak banget dijepit rahim kamu!", photo: "static/5.jpg" },
+            { stage: "6. Hantaman Brutal", dialogue: "Aku genjot memek kamu makin kenceng tanpa ampun! *Crot-crot... ahh...* dengerin suara hantaman aku di telinga kamu!", photo: "static/6.jpg" },
+            { stage: "7. Klimaks / Semprot", dialogue: "Aku gak tahan lagi! Aku tumpahin semua sperma kental dan panas aku di dalam rahim kamu... *ahh, crot dalem banget!*", photo: "static/7.jpg" },
+            { stage: "8. Penutup", dialogue: "Fyuuh... lemas banget. Lap paha kamu yang basah ya sayang, peluk guling dan bobok yang nyenyak.", photo: "static/8.jpg" }
         ];
 
         let currentIndex = -1;
@@ -123,7 +131,6 @@
             "Tantangan: Desah pelan di mic sekarang tanpa ngomong apa-apa selama 5 detik."
         ];
 
-        // --- SISTEM AUDIO SINTETIS (100% Pasti Bunyi Tanpa Error Link) ---
         let audioCtx = null;
         let synthInterval = null;
         let isMusicPlaying = false;
@@ -133,18 +140,16 @@
             let status = document.getElementById("audio-status");
 
             if (!isMusicPlaying) {
-                // Aktifkan Audio Context browser
                 audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                 if (audioCtx.state === 'suspended') { audioCtx.resume(); }
 
-                // Buat efek suara latar belakang malam/drone seksi bergelombang
                 synthInterval = setInterval(() => {
                     if (!isMusicPlaying || !audioCtx) return;
                     let osc = audioCtx.createOscillator();
                     let gain = audioCtx.createGain();
                     
                     osc.type = 'sine';
-                    osc.frequency.setValueAtTime(55, audioCtx.currentTime); // Nada bass rendah rileks (A1)
+                    osc.frequency.setValueAtTime(55, audioCtx.currentTime); 
                     
                     gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
                     gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 3);
@@ -187,9 +192,12 @@
                 let current = steps[currentIndex];
                 document.getElementById("stage-text").innerText = current.stage + ` (${currentIndex + 1}/${steps.length})`;
                 document.getElementById("dialogue-text").innerText = `"${current.dialogue}"`;
+                
+                // Ubah foto pacar secara otomatis sesuai tahap
+                document.getElementById("partner-photo").src = current.photo;
+
                 updateProgress();
                 
-                // Jika masuk tahap 6 atau 7 (klimaks), aktifkan efek denyut merah
                 let card = document.getElementById("main-card");
                 if (currentIndex >= 5) {
                     card.classList.add("card-hot");
@@ -257,6 +265,7 @@
             document.getElementById("restart-group").style.display = "none";
             document.getElementById("stage-text").innerText = "Mulai Ulang";
             document.getElementById("dialogue-text").innerText = "\"Sesi diulang dari awal. Siap-siap bikin dia lemas lagi...\"";
+            document.getElementById("partner-photo").src = "static/1.jpg";
             document.getElementById("progress-bar").style.width = "0%";
             document.getElementById("timer-text").innerText = "";
             document.getElementById("main-card").classList.remove("card-hot");
@@ -281,7 +290,7 @@
             let customInput = document.getElementById("custom-dialogue");
             let text = customInput.value.trim();
             if (text !== "") {
-                steps.push({ stage: "Spontan Nakal", dialogue: text });
+                steps.push({ stage: "Spontan Nakal", dialogue: text, photo: "static/8.jpg" });
                 customInput.value = "";
                 alert("Kalimat vulgar kustom masuk antrean!");
             }
