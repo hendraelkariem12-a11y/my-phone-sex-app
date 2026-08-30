@@ -3,18 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phone Sex Hardcore Game Edition</title>
+    <title>Ultimate Hardcore Sex Simulator Pro</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #030303; color: #fff; text-align: center; padding: 10px; margin: 0; }
-        .card { background: #111215; padding: 15px; border-radius: 12px; display: inline-block; width: 100%; max-width: 450px; box-shadow: 0 0 30px rgba(255, 0, 76, 0.5); box-sizing: border-box; text-align: left; border: 2px solid #ff004c; }
-        h2 { text-align: center; color: #ff004c; margin-bottom: 5px; font-size: 20px; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 10px rgba(255,0,76,0.8); }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #020202; color: #fff; text-align: center; padding: 10px; margin: 0; user-select: none; }
+        .card { background: #0f1014; padding: 15px; border-radius: 12px; display: inline-block; width: 100%; max-width: 450px; box-shadow: 0 0 35px rgba(255, 0, 76, 0.6); box-sizing: border-box; text-align: left; border: 2px solid #ff004c; position: relative; overflow: hidden; }
+        h2 { text-align: center; color: #ff004c; margin-bottom: 5px; font-size: 20px; text-transform: uppercase; letter-spacing: 2px; text-shadow: 0 0 12px rgba(255,0,76,0.9); }
         
-        .photo-container { width: 100%; height: 230px; background-color: #000; border-radius: 8px; margin-bottom: 10px; overflow: hidden; border: 2px solid #ff004c; display: flex; align-items: center; justify-content: center; position: relative; }
-        .photo-container img { width: 100%; height: 100%; object-fit: contain; }
+        /* Layar Pemilihan Jalur (Route Selection Menu) */
+        #route-menu { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10,10,12,0.95); z-index: 10; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; box-sizing: border-box; text-align: center; }
+        #route-menu h3 { color: #ff6b81; margin-bottom: 15px; text-transform: uppercase; }
+        .route-btn { background: #2f3542; color: #fff; border: 2px solid #ff004c; padding: 12px; width: 100%; border-radius: 8px; margin-bottom: 10px; font-weight: bold; cursor: pointer; font-size: 14px; transition: 0.2s; }
+        .route-btn:hover { background: #ff004c; }
 
-        /* Meteran Gairah (Arousal Meter) */
+        .photo-container { width: 100%; height: 220px; background-color: #000; border-radius: 8px; margin-bottom: 10px; overflow: hidden; border: 2px solid #ff004c; display: flex; align-items: center; justify-content: center; position: relative; }
+        .photo-container img { width: 100%; height: 100%; object-fit: contain; transition: transform 0.2s; }
+
+        /* Meteran Gairah & Penalti */
         .arousal-label { display: flex; justify-content: space-between; font-size: 11px; font-weight: bold; color: #ff6b81; margin-bottom: 3px; text-transform: uppercase; }
-        .arousal-container { width: 100%; background-color: #222; border-radius: 6px; margin-bottom: 12px; overflow: hidden; height: 14px; border: 1px solid #ff004c; }
+        .arousal-container { width: 100%; background-color: #222; border-radius: 6px; margin-bottom: 10px; overflow: hidden; height: 14px; border: 1px solid #ff004c; }
         .arousal-bar { width: 10%; height: 100%; background: linear-gradient(90deg, #ff4757, #ff004c, #9000ff); transition: width 0.3s ease; }
 
         .dialogue { font-size: 17px; margin: 8px 0 12px 0; font-style: italic; line-height: 1.4; color: #fff; min-height: 70px; background: #1a1b1e; padding: 10px; border-radius: 8px; border-left: 4px solid #ff004c; }
@@ -22,8 +28,8 @@
         .btn-action { background: linear-gradient(45deg, #ff004c, #ff4757); color: white; border: none; padding: 12px; font-size: 14px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; margin-bottom: 8px; text-transform: uppercase; box-shadow: 0 4px 15px rgba(255,0,76,0.4); }
         .btn-action:hover { opacity: 0.9; }
         
-        .choice-grid { display: grid; grid-template-columns: 1fr; gap: 6px; margin-bottom: 10px; }
-        .choice-btn { background-color: #2f3542; color: #fff; border: 1px solid #ff004c; padding: 10px; font-size: 13px; border-radius: 6px; cursor: pointer; font-weight: bold; text-align: left; }
+        .choice-grid { display: grid; grid-template-columns: 1fr; gap: 6px; margin-bottom: 8px; }
+        .choice-btn { background-color: #2f3542; color: #fff; border: 1px solid #ff004c; padding: 10px; font-size: 13px; border-radius: 6px; cursor: pointer; font-weight: left; text-align: left; font-weight: bold; }
         .choice-btn:hover { background-color: #ff004c; color: #fff; }
 
         .section-box { margin-top: 10px; border-top: 1px solid #222; padding-top: 8px; }
@@ -32,52 +38,78 @@
         .audio-controls { display: flex; justify-content: space-between; align-items: center; background: #1a1b1e; padding: 6px 10px; border-radius: 6px; font-size: 12px; }
         .btn-sm { background-color: #2f3542; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; }
 
+        /* Efek Juiciness & Getar Visual */
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            20% { transform: translate(-3px, 0px) rotate(-1deg); }
+            40% { transform: translate(1px, -1px) rotate(1deg); }
+            60% { transform: translate(-1px, 2px) rotate(0deg); }
+            80% { transform: translate(-3px, 1px) rotate(-1deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
+        .shake-effect { animation: shake 0.3s; }
+
         @keyframes pulse-crazy {
             0% { box-shadow: 0 0 10px rgba(255,0,76,0.5); }
-            50% { box-shadow: 0 0 40px rgba(255,0,76,1); border-color: #fff; }
+            50% { box-shadow: 0 0 45px rgba(255,0,76,1); border-color: #fff; }
             100% { box-shadow: 0 0 10px rgba(255,0,76,0.5); }
         }
-        .extreme-hot { animation: pulse-crazy 0.8s infinite; }
+        .extreme-hot { animation: pulse-crazy 0.6s infinite; }
     </style>
 </head>
 <body>
 
     <div class="card" id="main-card">
-        <h2>🔥 Hardcore Sex Simulator 🔥</h2>
-        
-        <!-- Foto Pacar -->
-        <div class="photo-container">
-            <img id="partner-photo" src="static/1.jpg" alt="Foto Pacar" onerror="this.src='https://via.placeholder.com/450x230/000/ff004c?text=Upload+1.jpg+s/d+8.jpg+di+folder+static'">
+        <!-- MENU PILIHAN JALUR CERITA (ROUTE SELECTOR) -->
+        <div id="route-menu">
+            <h3>Pilih Gaya Main Kamu 🔥</h3>
+            <button class="route-btn" onclick="startRoute('rough')">💥 Route 1: Rough & Brutal (Hardcore)</button>
+            <button class="route-btn" onclick="startRoute('sensual')">💦 Route 2: Wet & Slow Teasing</button>
+            <button class="route-btn" onclick="startRoute('frenzy')">⚡ Route 3: Speed Frenzy (Time Attack)</button>
         </div>
 
-        <!-- Meteran Gairah -->
+        <h2>🔥 Ultimate Sex Sim 🔥</h2>
+        
+        <div class="photo-container" id="photo-box">
+            <img id="partner-photo" src="static/1.jpg" alt="Foto Pacar" onerror="this.src='https://via.placeholder.com/450x220/000/ff004c?text=Upload+1.jpg+s/d+8.jpg'">
+        </div>
+
+        <!-- Meteran Gairah & Penalti -->
         <div class="arousal-label">
-            <span>Level Sange Pacar</span>
-            <span id="arousal-text">10% (Dingin)</span>
+            <span id="route-title-label">Route: Hardcore</span>
+            <span id="arousal-text">15% (Mulai Panas)</span>
         </div>
         <div class="arousal-container">
             <div class="arousal-bar" id="arousal-bar"></div>
         </div>
 
-        <!-- Kotak Teks Dialog Vulgar -->
-        <div class="dialogue" id="dialogue-text">"Buka celana kamu sekarang... biarin aku bikin kamu basah kuyup malam ini."</div>
+        <!-- Kotak Dialog Vulgar -->
+        <div class="dialogue" id="dialogue-text">"Pilih jalur kamu dan hancurkan malam ini..."</div>
 
-        <!-- Tombol Interaktif Utama -->
+        <!-- Kontrol Tombol Utama -->
         <div id="game-controls">
-            <button class="btn-action" id="main-btn" onclick="nextStage()">Sentuh / Lanjut Adegan ➔</button>
+            <button class="btn-action" id="main-btn" onclick="nextStage()">Lanjut Adegan ➔</button>
         </div>
 
-        <!-- Pilihan Aksi Tambahan (Cabang Vulgar) -->
+        <!-- Cabang Pilihan Interaktif dengan Sistem Hukuman Penalti -->
         <div class="section-box" id="branch-box" style="display:none;">
-            <h4>Pilih Aksi Brutal Kamu:</h4>
-            <div class="choice-grid">
-                <button class="choice-btn" onclick="makeChoice(1)">🔥 Remas kuat dada & jilat putingnya</button>
-                <button class="choice-btn" onclick="makeChoice(2)">💦 Colok & mainin memeknya pakai jari</button>
+            <h4>Pilih Aksi Strategis (Hati-hati Salah Pilih, Gairah Bisa Turun!):</h4>
+            <div class="choice-grid" id="choice-container">
+                <!-- Diisi otomatis oleh JavaScript -->
+            </div>
+        </div>
+
+        <!-- Panel Status Sinyal Eksternal/Simulasi Real-Time -->
+        <div class="section-box">
+            <h4>Simulasi Respon Pacar Secara Live</h4>
+            <div style="display: flex; gap: 5px;">
+                <button class="btn-sm" style="flex:1; background:#3742fa;" onclick="triggerPartnerAction('boost')">⚡ Pacar Minta Lagi (+20%)</button>
+                <button class="btn-sm" style="flex:1; background:#eb4d4b;" onclick="triggerPartnerAction('penalty')">❌ Salah Sentuh (-15%)</button>
             </div>
         </div>
 
         <div class="section-box">
-            <h4>Musik Latar Atmosfer</h4>
+            <h4>Audio Atmosfer</h4>
             <div class="audio-controls">
                 <span id="audio-status">Status: Mati</span>
                 <button class="btn-sm" onclick="toggleSynthAudio()" id="audio-btn">Nyalakan</button>
@@ -86,89 +118,172 @@
     </div>
 
     <script>
+        let currentRoute = 'rough';
         let currentStage = 0;
-        let arousalLevel = 10;
+        let arousalLevel = 15;
+        let activeStory = [];
 
-        // Skrip cerita paling vulgar, blak-blakan, dan tanpa sensor
-        let storyStages = [
-            { stage: "1. Pembukaan Vulgar", dialogue: "Buka paha kamu lebar-lebar di depan HP, bayangin lidah aku lagi jilat-jilat selangkangan kamu yang udah gatal.", photo: "static/1.jpg", arousalAdd: 15 },
-            { stage: "2. Remasan Kasar", dialogue: "Tangan aku ngeramasin teleran daging empuk dada kamu... ngisap puting kamu keras-keras sampai kamu mendesah kepanasan.", photo: "static/2.jpg", arousalAdd: 20 },
-            { stage: "3. Colokan Jari", dialogue: "Dua jari aku udah masuk ke dalam memek kamu... *cor-cor*, basah banget anjing, licin karena air sange kamu sendiri!", photo: "static/3.jpg", arousalAdd: 25 },
-            { stage: "4. Pamer Batang Keras", dialogue: "Punya aku udah tegang parah, ngilu pengen buru-buru tusuk lubang memek kamu yang sempit dan panas itu.", photo: "static/4.jpg", arousalAdd: 30 },
-            { stage: "5. Tusukan Pertama", dialogue: "Aku tancep batang aku dalam-dalam! *Jleb!* Sempit banget, anget, rahim kamu langsung jepit batang aku kuat-kuat!", photo: "static/5.jpg", arousalAdd: 40 },
-            { stage: "6. Hantaman Brutal", dialogue: "Aku genjot memek kamu makin cepet dan keras! *Plak-plak-plak!* Dengerin suara hantaman daging kita di telepon!", photo: "static/6.jpg", arousalAdd: 60 },
-            { stage: "7. Klimaks / Semprot Dalam", dialogue: "Gua mau tumpahin semuanya di dalam rahim kamu! Rasain semburan sperma panas gua penuhin lubang memek kamu! *Crot-crot dalem banget!*", photo: "static/7.jpg", arousalAdd: 90 },
-            { stage: "8. Selesai / Aftercare", dialogue: "Fyuuh... lemas banget. Biarin sperma aku netes dari memek kamu ya sayang. Istirahat sana, good girl.", photo: "static/8.jpg", arousalAdd: 100 }
-        ];
+        // DATABASE SKRIP BERDASARKAN JALUR (ROUTE)
+        const routesData = {
+            "rough": [
+                { stage: "1. Provokasi", dialogue: "Buka celana dalam kamu sekarang, mandangin bodi basah aku sambil bayangin batang kamu masuk.", photo: "static/1.jpg", arousalAdd: 15, hasChoice: false },
+                { stage: "2. Remasan", dialogue: "Tangan kamu langsung cengkeram kuat dada aku... ngenyot puting keras-keras sampe aku menjerit.", photo: "static/2.jpg", arousalAdd: 20, hasChoice: true },
+                { stage: "3. Colokan", dialogue: "Dua jari kamu tusuk masuk ke lubang memek aku yang udah banjir air sange!", photo: "static/3.jpg", arousalAdd: 25, hasChoice: false },
+                { stage: "4. Batang Tegang", dialogue: "Punya kamu udah berdenyut keras, ga sabar nancep di rahim aku.", photo: "static/4.jpg", arousalAdd: 25, hasChoice: false },
+                { stage: "5. Tusukan", dialogue: "Jleb! Batang besar kamu masuk telak! Sempit dan panas banget anjir!", photo: "static/5.jpg", arousalAdd: 30, hasChoice: true },
+                { stage: "6. Hantaman", dialogue: "Plak-plak! Kamu genjot memek aku tanpa ampun, bikin aku mendesah keras!", photo: "static/6.jpg", arousalAdd: 40, hasChoice: false },
+                { stage: "7. Klimaks", dialogue: "Crot! Tumpahin semua sperma kental kamu di dalam rahim aku sampe luber!", photo: "static/7.jpg", arousalAdd: 50, hasChoice: false },
+                { stage: "8. Penutup", dialogue: "Fyuuh... lemas. Sesi brutal selesai, peluk aku erat.", photo: "static/8.jpg", arousalAdd: 100, hasChoice: false }
+            ],
+            "sensual": [
+                { stage: "1. Bisikan", dialogue: "Rebahin badan kamu, rasain hembusan napas aku di leher kamu perlahan...", photo: "static/1.jpg", arousalAdd: 10, hasChoice: false },
+                { stage: "2. Elusan", dialogue: "Tangan lembut ngelus paha mulus kamu naik ke perut.", photo: "static/2.jpg", arousalAdd: 15, hasChoice: true },
+                { stage: "3. Ciuman", dialogue: "Bibir kita nempel, saling lumut lidah basah di ujung telepon.", photo: "static/3.jpg", arousalAdd: 20, hasChoice: false },
+                { stage: "4. Kehangatan", dialogue: "Sentuhan makin turun, ngerasain basahnya gairah kita berdua.", photo: "static/4.jpg", arousalAdd: 25, hasChoice: false },
+                { stage: "5. Penyatuan", dialogue: "Masuk pelan-pelan... ngerasain kehangatan tubuh yang nyatu.", photo: "static/5.jpg", arousalAdd: 30, hasChoice: true },
+                { stage: "6. Goyangan", dialogue: "Irama pelan tapi dalam, bikin merinding seluruh badan.", photo: "static/6.jpg", arousalAdd: 35, hasChoice: false },
+                { stage: "7. Puncak", dialogue: "Pelepasan lembut bersamaan dengan desahan panjang.", photo: "static/7.jpg", arousalAdd: 50, hasChoice: false },
+                { stage: "8. Pelukan", dialogue: "Tidur meluk aku erat ya sayang...", photo: "static/8.jpg", arousalAdd: 100, hasChoice: false }
+            ],
+            "frenzy": [
+                { stage: "1. Start Cepat", dialogue: "Ga usah basa-basi, langsung cabut pakaianmu!", photo: "static/1.jpg", arousalAdd: 25, hasChoice: false },
+                { stage: "2. Kejar Tempo", dialogue: "Kejar kecepatan desahan aku sekarang juga!", photo: "static/2.jpg", arousalAdd: 30, hasChoice: true },
+                { stage: "3. Hajar Cepat", dialogue: "Colok terus tanpa henti! Cepat!", photo: "static/3.jpg", arousalAdd: 35, hasChoice: false },
+                { stage: "4. Pompa Darah", dialogue: "Jantung deg-degan parah nahan klimaks.", photo: "static/4.jpg", arousalAdd: 40, hasChoice: false },
+                { stage: "5. Tusukan Kilat", dialogue: "Tusuk brutal bertubi-tubi!", photo: "static/5.jpg", arousalAdd: 45, hasChoice: true },
+                { stage: "6. Kecepatan Maksimal", dialogue: "Udah mau keluar! Tahan sebentar!", photo: "static/6.jpg", arousalAdd: 50, hasChoice: false },
+                { stage: "7. Meledak", dialogue: "Crot serentak! Luar biasa nikmat!", photo: "static/7.jpg", arousalAdd: 70, hasChoice: false },
+                { stage: "8. Selesai", dialogue: "Napas memburu, keringetan semua.", photo: "static/8.jpg", arousalAdd: 100, hasChoice: false }
+            ]
+        };
+
+        function startRoute(routeName) {
+            currentRoute = routeName;
+            activeStory = routesData[routeName];
+            currentStage = 0;
+            arousalLevel = 15;
+            document.getElementById("route-menu").style.display = "none";
+            document.getElementById("route-title-label").innerText = "Route: " + routeName.toUpperCase();
+            loadStageData();
+        }
 
         function triggerVibration(pattern) {
             if ("vibrate" in navigator) { navigator.vibrate(pattern); }
         }
 
+        // SISTEM PENALTI & JUICINESS (Gairah bisa naik atau turun berdasarkan aksi)
         function updateArousal(amount) {
-            arousalLevel = Math.min(100, arousalLevel + amount);
+            arousalLevel = Math.max(0, Math.min(100, arousalLevel + amount));
             let bar = document.getElementById("arousal-bar");
             let text = document.getElementById("arousal-text");
             bar.style.width = arousalLevel + "%";
             
+            // Efek Juiciness: Layar bergetar merah (Shake Effect)
+            let card = document.getElementById("main-card");
+            card.classList.add("shake-effect");
+            setTimeout(() => card.classList.remove("shake-effect"), 300);
+
             if (arousalLevel < 40) {
                 text.innerText = arousalLevel + "% (Mulai Panas)";
+                card.classList.remove("extreme-hot");
             } else if (arousalLevel < 80) {
                 text.innerText = arousalLevel + "% (Sange Berat 🔥)";
+                card.classList.remove("extreme-hot");
             } else {
                 text.innerText = arousalLevel + "% (ORGASMIS 💦)";
-                document.getElementById("main-card").classList.add("extreme-hot");
+                card.classList.add("extreme-hot");
             }
         }
 
-        function nextStage() {
-            currentStage++;
-            if (currentStage < storyStages.length) {
-                let data = storyStages[currentStage];
+        function loadStageData() {
+            if (currentStage < activeStory.length) {
+                let data = activeStory[currentStage];
                 document.getElementById("dialogue-text").innerText = `"${data.dialogue}"`;
                 document.getElementById("partner-photo").src = data.photo;
-                updateArousal(data.arousalAdd);
-
-                // Efek getar bertahap makin beringas
-                if (currentStage >= 5) {
-                    triggerVibration([500, 100, 500, 100, 800]);
+                
+                if (data.hasChoice) {
+                    showChoices();
                 } else {
-                    triggerVibration(200);
+                    document.getElementById("branch-box").style.display = "none";
+                    document.getElementById("game-controls").style.display = "block";
                 }
 
-                // Munculkan pilihan aksi cabang di tahap tertentu
-                if (currentStage === 2 || currentStage === 5) {
-                    document.getElementById("game-controls").style.display = "none";
-                    document.getElementById("branch-box").style.display = "block";
+                if (currentStage >= 4) {
+                    triggerVibration([400, 100, 400, 100, 600]);
+                } else {
+                    triggerVibration(150);
                 }
             } else {
                 endGame();
             }
         }
 
-        function makeChoice(choiceNum) {
+        function nextStage() {
+            let data = activeStory[currentStage];
+            updateArousal(data.arousalAdd);
+            currentStage++;
+            loadStageData();
+        }
+
+        // SISTEM CABANG PILIHAN DENGAN PENALTI RISIKO SALAH PILIH
+        function showChoices() {
+            document.getElementById("game-controls").style.display = "none";
+            let branchBox = document.getElementById("branch-box");
+            let container = document.getElementById("choice-container");
+            container.innerHTML = "";
+            branchBox.style.display = "block";
+
+            // Buat 1 Pilihan Benar (+ Gairah) dan 1 Pilihan Salah (Hukuman Penalti - Gairah Turun)
+            let choices = [
+                { text: "🔥 Sentuh & Hajar Lebih Kasar (+ Gairah)", reward: 25, isCorrect: true },
+                { text: "❌ Ragu-ragu / Kelamaan Diam (Penalti Turun!)", reward: -20, isCorrect: false }
+            ];
+            
+            // Acak posisi pilihan biar menantang
+            choices.sort(() => Math.random() - 0.5);
+
+            choices.forEach(c => {
+                let btn = document.createElement("button");
+                btn.className = "choice-btn";
+                btn.innerText = c.text;
+                btn.onclick = () => resolveChoice(c);
+                container.appendChild(btn);
+            });
+        }
+
+        function resolveChoice(choiceObj) {
             document.getElementById("branch-box").style.display = "none";
             document.getElementById("game-controls").style.display = "block";
-            
-            if (choiceNum === 1) {
-                arousalLevel += 15;
-                alert("Pacar kamu mendesah keras: 'Aghh iya sayang, remas terus puting aku!'");
+
+            if (choiceObj.isCorrect) {
+                alert("Pilihan Tepat! Pacar makin mendesah beringas!");
+                updateArousal(choiceObj.reward);
             } else {
-                arousalLevel += 20;
-                alert("Pacar kamu teriak lemas: 'Ahh jari kamu enak banget, udah becek parah!'");
+                alert("⚠️ SALAH LANGKAH! Pacar jadi agak 'turn-off' karena ragu-ragu! Gairah turun!");
+                updateArousal(choiceObj.reward); // Mengurangi nilai arousal (Penalti)
             }
-            updateArousal(0);
-            nextStage();
+            currentStage++;
+            loadStageData();
+        }
+
+        function triggerPartnerAction(type) {
+            if (type === 'boost') {
+                alert("💬 Pacar mengirim sinyal: 'Ah lagi sayang, jangan berhenti!'");
+                updateArousal(20);
+            } else {
+                alert("❌ Pacar protes: 'Ih kelamaan, kurang bertenaga!'");
+                updateArousal(-15);
+            }
         }
 
         function endGame() {
-            document.getElementById("dialogue-text").innerText = "Sesi permainan sange selesai! Kirim screenshot layar ini ke pacar kamu sekarang.";
-            document.getElementById("game-controls").innerHTML = `<button class="btn-action" onclick="location.reload()">🔄 Mainkan Ulang dari Awal</button>`;
+            document.getElementById("dialogue-text").innerText = "Sesi game dewasa selesai! Skor gairah akhir: " + arousalLevel + "%";
+            document.getElementById("game-controls").innerHTML = `<button class="btn-action" onclick="location.reload()">🔄 Pilih Route Ulang</button>`;
             document.getElementById("partner-photo").src = "static/8.jpg";
             triggerVibration([1000, 500, 1000]);
         }
 
-        // Audio Sintetis Anti-Gagal
+        // Audio Sintetis Latar Belakang
         let audioCtx = null, synthInterval = null, isMusicPlaying = false;
         function toggleSynthAudio() {
             let btn = document.getElementById("audio-btn");
