@@ -6,7 +6,7 @@
     <title>Extreme Vulgar Chat Interactive</title>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #050505; color: #fff; text-align: center; padding: 10px; margin: 0; }
-        .card { background: #111215; padding: 15px; border-radius: 12px; display: inline-block; width: 100%; max-width: 450px; box-shadow: 0 0 30px rgba(255, 0, 76, 0.5); box-sizing: border-box; text-align: left; border: 2px solid #ff004c; }
+        .card { background: #111215; padding: 15px; border-radius: 12px; display: inline-block; width: 100%; max-width: 450px; box-shadow: 0 0 30px rgba(255, 0, 76, 0.5); box-sizing: border-box; text-align: left; border: 2px solid #ff004c; position: relative; }
         h2 { text-align: center; color: #ff004c; margin-bottom: 8px; font-size: 18px; text-transform: uppercase; letter-spacing: 1px; text-shadow: 0 0 10px rgba(255,0,76,0.8); }
 
         .media-container { width: 100%; height: 210px; background-color: #000; border-radius: 8px; margin-bottom: 10px; overflow: hidden; border: 2px solid #ff004c; display: flex; align-items: center; justify-content: center; position: relative; }
@@ -26,6 +26,15 @@
 
         .audio-section { margin-top: 10px; border-top: 1px solid #222; padding-top: 6px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
         .btn-sm { background-color: #2f3542; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; border: 1px solid #ff004c; }
+
+        /* Style Modal Pembayaran */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 999; justify-content: center; align-items: center; padding: 15px; box-sizing: border-box; }
+        .modal-content { background: #111215; border: 2px solid #ff004c; padding: 20px; border-radius: 12px; width: 100%; max-width: 400px; text-align: center; color: #fff; box-shadow: 0 0 25px rgba(255, 0, 76, 0.7); }
+        .modal-content h3 { color: #ff004c; margin-top: 0; }
+        .dana-box { background: #1a1b1e; padding: 10px; border-radius: 8px; border: 1px solid #ff6b81; margin: 15px 0; font-weight: bold; }
+        .wa-btn { display: inline-block; background: #25D366; color: #fff; text-decoration: none; padding: 10px 15px; border-radius: 6px; font-weight: bold; margin-bottom: 15px; font-size: 13px; }
+        .code-input { width: 65%; padding: 8px; border-radius: 4px; border: 1px solid #ff004c; background: #000; color: #fff; text-align: center; }
+        .submit-btn { padding: 8px 12px; background: #ff004c; color: #fff; border: none; border-radius: 4px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -34,7 +43,6 @@
         <h2>🔥 Extreme Dirty Talk Chat 🔥</h2>
         
         <div class="media-container" id="media-box">
-            <!-- Menghapus atribut muted permanen -->
             <video id="media-video" autoplay loop playsinline src="static/1.mp4"></video>
         </div>
 
@@ -50,6 +58,28 @@
         <div class="audio-section">
             <span id="audio-status">Atmosfer: Mati</span>
             <button class="btn-sm" onclick="toggleSynthAudio()">Nyalakan Musik</button>
+        </div>
+    </div>
+
+    <!-- MODAL PAYWALL PEMBAYARAN -->
+    <div class="modal-overlay" id="paywall-modal">
+        <div class="modal-content">
+            <h3>🔒 AKSES TERKUNCI</h3>
+            <p style="font-size: 13px; line-height: 1.4;">Untuk melanjutkan ke sesi berikutnya & request kata-kata/video/foto khusus pacar (Tarif 20rb), silakan lakukan pembayaran.</p>
+            
+            <div class="dana-box">
+                Transfer DANA: <br>
+                <span style="color: #2e86de; font-size: 18px;">082116864765</span>
+            </div>
+
+            <a href="https://wa.me/6282122900593?text=Halo%20mas,%20saya%20sudah%20transfer%2020rb%20DANA.%20Boleh%20minta%20kode%20aksesnya?" target="_blank" class="wa-btn">
+                💬 Minta Kode via WhatsApp
+            </a>
+
+            <div style="margin-top: 10px;">
+                <input type="text" id="access-code" class="code-input" placeholder="Masukkan Kode">
+                <button onclick="unlockContent()" class="submit-btn">Buka</button>
+            </div>
         </div>
     </div>
 
@@ -98,6 +128,8 @@
 
         let currentIndex = 0;
         let isAudioUnlocked = false;
+        let isPaid = false; // Status Pembayaran
+        const SECRET_CODE = "20KPASS"; // KODE RAHASIA UNTUK BUKA (Bisa kamu ganti sesuka hati)
 
         function triggerVibration(pattern) {
             if ("vibrate" in navigator) { navigator.vibrate(pattern); }
@@ -113,7 +145,6 @@
 
             if (vidElem.getAttribute("src") !== targetSrc) {
                 vidElem.src = targetSrc;
-                // Jika audio sudah dibuka kuncinya, hilangkan muted dan putar suara
                 if (isAudioUnlocked) {
                     vidElem.muted = false;
                 }
@@ -123,9 +154,14 @@
         }
 
         function nextChat() {
+            // BATAS PAYWALL: Jika sudah mencapai percakapan 20 dan BELUM bayar
+            if (currentIndex >= 20 && !isPaid) {
+                document.getElementById("paywall-modal").style.display = "flex";
+                return;
+            }
+
             let vidElem = document.getElementById("media-video");
             
-            // Buka kunci audio saat tombol ditekan pertama kali
             if (!isAudioUnlocked) {
                 isAudioUnlocked = true;
                 vidElem.muted = false;
@@ -141,7 +177,7 @@
                 
                 let senderName = document.createElement("div");
                 senderName.className = "bubble-sender";
-                senderName.innerText = data.sender === "me" ? "Kamu (Hendra)" : "Pacar (Nisa)";
+                senderName.innerText = data.sender === "me" ? "Kamu" : "Pacar";
                 
                 let textNode = document.createElement("div");
                 textNode.innerText = data.text;
@@ -171,9 +207,22 @@
             }
         }
 
+        // FUNGSI MEMVERIFIKASI KODE BAYAR
+        function unlockContent() {
+            let userCode = document.getElementById("access-code").value.trim();
+            if (userCode === SECRET_CODE) {
+                isPaid = true;
+                document.getElementById("paywall-modal").style.display = "none";
+                alert("Kode Benar! Akses penuh telah dibuka.");
+                nextChat();
+            } else {
+                alert("Kode Salah! Silakan konfirmasi pembayaran via WhatsApp terlebih dahulu.");
+            }
+        }
+
         window.onload = function() {
             let vidElem = document.getElementById("media-video");
-            vidElem.muted = true; // Mute sebentar di awal agar diputar otomatis oleh browser
+            vidElem.muted = true;
             nextChat();
         };
 
