@@ -155,7 +155,7 @@
 
         function nextChat() {
             // BATAS PAYWALL: Jika sudah mencapai percakapan 20 dan BELUM bayar
-            if (currentIndex >= 20 && !isPaid) {
+            if (currentIndex >= 15 && !isPaid) {
                 document.getElementById("paywall-modal").style.display = "flex";
                 return;
             }
