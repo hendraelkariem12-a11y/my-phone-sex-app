@@ -54,7 +54,7 @@
     </div>
 
     <script>
-        // Database 30 Percakapan Saling Balas (Sangat Vulgar & Panjang)
+        // Database 30 Percakapan Saling Balas
         const conversationFlow = [
             // Tahap 1: Pemanasan & Lepas Baju (Media 1)
             { sender: "me", text: "Sayang, buka baju kamu sekarang di depan HP. Aku mau mandangin tetek kamu yang kenyal malam ini." },
@@ -108,7 +108,6 @@
         }
 
         function updateMediaDisplay(index) {
-            // Dibagi rata ke 7 media berdasarkan total 30 percakapan
             let mediaGroup = Math.floor(index / 4.3) + 1;
             if (mediaGroup > 7) mediaGroup = 7;
 
@@ -119,11 +118,15 @@
             if (mediaGroup % 2 === 0) {
                 imgElem.style.display = "none";
                 vidElem.style.display = "block";
-                <video autoplay loop muted playsinline src="static/1.mp4"></video>
-                vidElem.src = `static/${mediaGroup}.mp4`;
-                vidElem.play();
+                
+                let targetSrc = `static/${mediaGroup}.mp4`;
+                if (vidElem.getAttribute("src") !== targetSrc) {
+                    vidElem.src = targetSrc;
+                    vidElem.play().catch(e => console.log("Autoplay ditahan browser:", e));
+                }
                 labelElem.innerText = `Media Aktif: ${mediaGroup}.mp4 (Video)`;
             } else {
+                vidElem.pause();
                 vidElem.style.display = "none";
                 imgElem.style.display = "block";
                 imgElem.src = `static/${mediaGroup}.jpg`;
