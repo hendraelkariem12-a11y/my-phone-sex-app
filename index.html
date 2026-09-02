@@ -119,6 +119,7 @@
             if (mediaGroup % 2 === 0) {
                 imgElem.style.display = "none";
                 vidElem.style.display = "block";
+                <video autoplay loop muted playsinline src="static/1.mp4"></video>
                 vidElem.src = `static/${mediaGroup}.mp4`;
                 vidElem.play();
                 labelElem.innerText = `Media Aktif: ${mediaGroup}.mp4 (Video)`;
